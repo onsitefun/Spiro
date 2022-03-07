@@ -5,6 +5,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Hi!</Text>
+      <Text>Spiro app</Text>
+      <image></image>
       <StatusBar style="auto" />
     </View>
   );
