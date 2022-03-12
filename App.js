@@ -1,24 +1,26 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, StatusBar, SafeAreaView, View, Text } from "react-native";
+import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
+import theme from "./theme";
+import Navigation from "../Spiro/src/navigation";
+import "react-native-gesture-handler";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Hi!</Text>
-      <Text>Spiro app</Text>
-      <image></image>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default function App(props) {
+  let [fontsLoaded] = useFonts({
+    TajawalBlack: require("../Spiro/assets/Fonts/Tajawal-Black.ttf"),
+    TajawalBold: require("../Spiro/assets/Fonts/Tajawal-Bold.ttf"),
+    TajawalExtraBold: require("../Spiro/assets/Fonts/Tajawal-ExtraBold.ttf"),
+    TajawalExtraLight: require("../Spiro/assets/Fonts/Tajawal-ExtraLight.ttf"),
+    TajawalLight: require("../Spiro/assets/Fonts/Tajawal-Light.ttf"),
+    TajawalMedium: require("../Spiro/assets/Fonts/Tajawal-Medium.ttf"),
+    TajawalRegular: require("../Spiro/assets/Fonts/Tajawal-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return <Navigation />;
+  }
 }
-
-//this comment is test
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#140",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const styles = StyleSheet.create({});
