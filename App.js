@@ -4,7 +4,7 @@ import {Avatar, Title, Caption, Text, TouchableRipple} from 'react-native-paper'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-//import Share from 'react-native-share';
+import Share from 'react-native-share';
 
 export default function App() {
   return (
@@ -64,7 +64,7 @@ export default function App() {
             <Text style={styles.menuItemText}>Share Your Achievements</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={History}>
           <View style={styles.menuItem}>
             <Icon name="history" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Sessions History</Text>
