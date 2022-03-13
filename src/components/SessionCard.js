@@ -41,6 +41,16 @@ export default class SessionCard extends React.Component {
             ))}
         </View>
         <View>
+          {data.label !== undefined &&
+            (data.label == "FREE" ? (
+              <View></View>
+            ) : (
+              <MaterialIcons
+                name="lock-outline"
+                size={20}
+                color={theme.white}
+              />
+            ))}
           <Text style={styles._title}>{data.title}</Text>
           <Text style={styles._title_secondary}>{data.time}</Text>
         </View>
@@ -77,6 +87,7 @@ let styles = StyleSheet.create({
     fontFamily: theme.TajawalBold,
     color: theme.white,
     textTransform: "uppercase",
+    marginTop: 10,
   },
   _title_secondary: {
     fontFamily: theme.regular,

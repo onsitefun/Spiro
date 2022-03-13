@@ -61,13 +61,16 @@ export default class Journey extends React.Component {
 
         <ImageBackground style={styles._thumbnail}>
           <Text style={styles._thumbnail_title}>Title title title</Text>
+          <Text style={styles._thumbnail_title_secondary}>10 Sessions</Text>
         </ImageBackground>
-        <Text style={styles._desc}>
-          Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae sit
-          debitis quaerat qui officiis explicabo. Ea dolores exercitationem. pin
-        </Text>
-        <Text style={styles._sesion_title}>Sessions</Text>
         <ScrollView>
+          <Text style={styles._desc}>
+            Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
+            sit debitis quaerat qui officiis explicabo. Ea dolores
+            exercitationem. pin
+          </Text>
+          <Text style={styles._sesion_title}>Sessions</Text>
+
           <View>
             {sessions.map((val, i) => {
               return (
@@ -136,13 +139,19 @@ let styles = StyleSheet.create({
     marginTop: 30,
   },
   _thumbnail_title: {
+    fontFamily: theme.TajawalBold,
     color: theme.white,
-    fontFamily: theme.extrabold,
+    textTransform: "uppercase",
+  },
+  _thumbnail_title_secondary: {
+    fontFamily: theme.regular,
+    color: theme.white,
+    textTransform: "capitalize",
   },
   _desc: {
     color: theme.white,
     fontFamily: theme.medium,
-    marginVertical: 10,
+    marginVertical: 20,
   },
   _sesion_title: {
     color: theme.white,
