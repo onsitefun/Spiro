@@ -32,6 +32,9 @@ export default class JourneyCard extends React.Component {
         </View>
         <View>
           <Text style={styles._title}>{data.title}</Text>
+          <Text style={styles._title_secondary}>
+            {data.numOfSessions} Sessions
+          </Text>
         </View>
       </ImageBackground>
     );
@@ -66,6 +69,11 @@ let styles = StyleSheet.create({
     fontFamily: theme.TajawalBold,
     color: theme.white,
     textTransform: "uppercase",
+  },
+  _title_secondary: {
+    fontFamily: theme.regular,
+    color: theme.white,
+    textTransform: "capitalize",
   },
   _header: {
     flexDirection: "row",

@@ -34,9 +34,7 @@ export default class PlaySession extends React.Component {
         </View>
         <ImageBackground style={styles._thumbnail}>
           <Text style={styles._thumbnail_title}>Title title title</Text>
-          <Text style={[styles._thumbnail_title, { fontSize: 15 }]}>
-            Title title title
-          </Text>
+          <Text style={styles._thumbnail_title_secondary}>10 Sessions</Text>
         </ImageBackground>
         <AudioSlider audio={AudioFile} />
         <View style={styles._tag_row}>
@@ -69,7 +67,6 @@ export default class PlaySession extends React.Component {
               color={theme.white}
             />
           </TouchableOpacity>
-          {/* <MaterialIcons name="favorite" size={24} color="black" /> */}
         </View>
       </View>
     );
@@ -108,10 +105,20 @@ let styles = StyleSheet.create({
     paddingLeft: 20,
     marginTop: 30,
   },
+  // _thumbnail_title: {
+  //   color: theme.white,
+  //   fontFamily: theme.extrabold,
+  //   fontSize: 17,
+  // },
   _thumbnail_title: {
+    fontFamily: theme.TajawalBold,
     color: theme.white,
-    fontFamily: theme.extrabold,
-    fontSize: 17,
+    textTransform: "uppercase",
+  },
+  _thumbnail_title_secondary: {
+    fontFamily: theme.regular,
+    color: theme.white,
+    textTransform: "capitalize",
   },
   _desc: {
     color: theme.white,

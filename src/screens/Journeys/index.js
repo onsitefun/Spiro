@@ -11,38 +11,54 @@ export default class Journeys extends React.Component {
   render() {
     let journeys = [
       {
-        label: "55 MIN",
+        label: "PREMIUM",
         title: "Title title title",
+        enrolled: true,
+        numOfSessions: "10",
       },
       {
-        label: "55 MIN",
+        label: "PREMIUM",
         title: "Title title title",
+        enrolled: true,
+        numOfSessions: "10",
       },
       {
-        label: "55 MIN",
+        label: "PREMIUM",
         title: "Title title title",
-      },
-
-      {
-        label: "55 MIN",
-        title: "Title title title",
-      },
-      {
-        label: "55 MIN",
-        title: "Title title title",
+        enrolled: true,
+        numOfSessions: "10",
       },
 
       {
-        label: "55 MIN",
+        label: "PREMIUM",
         title: "Title title title",
+        enrolled: true,
+        numOfSessions: "10",
       },
       {
-        label: "55 MIN",
+        label: "PREMIUM",
         title: "Title title title",
+        enrolled: true,
+        numOfSessions: "10",
+      },
+
+      {
+        label: "PREMIUM",
+        title: "Title title title",
+        enrolled: true,
+        numOfSessions: "10",
       },
       {
-        label: "55 MIN",
+        label: "PREMIUM",
         title: "Title title title",
+        enrolled: true,
+        numOfSessions: "10",
+      },
+      {
+        label: "PREMIUM",
+        title: "Title title title",
+        enrolled: true,
+        numOfSessions: "10",
       },
     ];
     return (
