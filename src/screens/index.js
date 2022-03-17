@@ -6,6 +6,10 @@ import Profile from "./Profile";
 import Journeys from "./Journeys";
 import Tags from "./Tags";
 import PlaySession from "./PlaySession";
+import Settings from "./Settings";
+import SessionsHistory from "./SessionsHistory";
+import MinutesByTag from "./MinutesByTag";
+import Downloads from "./Downloads";
 
 export {
   EnterPin,
@@ -16,4 +20,8 @@ export {
   Journeys,
   Tags,
   PlaySession,
+  Settings,
+  SessionsHistory,
+  MinutesByTag,
+  Downloads,
 };

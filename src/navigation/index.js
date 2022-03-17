@@ -16,6 +16,10 @@ import {
   Profile,
   Tags,
   PlaySession,
+  Settings,
+  SessionsHistory,
+  MinutesByTag,
+  Downloads
 } from "./../screens";
 import theme from "../../theme";
 import DrawerContent from "./../components/DrawerContent";
@@ -84,6 +88,10 @@ function Navigation() {
         <Stack.Screen name="Journey" component={Journey} />
         <Stack.Screen name="PlaySession" component={PlaySession} />
         <Stack.Screen name="Tags" component={Tags} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="SessionsHistory" component={SessionsHistory} />
+        <Stack.Screen name="MinutesByTag" component={MinutesByTag} />
+        <Stack.Screen name="Downloads" component={Downloads} />
       </Stack.Navigator>
     </NavigationContainer>
   );
