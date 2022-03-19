@@ -1,9 +1,23 @@
-import React from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
-import {Avatar, Title, Caption, Text, TouchableRipple} from 'react-native-paper';
+import React from "react";
+import { StyleSheet, StatusBar, SafeAreaView, View, Text } from "react-native";
+import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
+import theme from "./theme";
+import Navigation from "../Spiro/src/navigation";
+import "react-native-gesture-handler";
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+export default function App(props) {
+  let [fontsLoaded] = useFonts({
+    TajawalBlack: require("../Spiro/assets/Fonts/Tajawal-Black.ttf"),
+    TajawalBold: require("../Spiro/assets/Fonts/Tajawal-Bold.ttf"),
+    TajawalExtraBold: require("../Spiro/assets/Fonts/Tajawal-ExtraBold.ttf"),
+    TajawalExtraLight: require("../Spiro/assets/Fonts/Tajawal-ExtraLight.ttf"),
+    TajawalLight: require("../Spiro/assets/Fonts/Tajawal-Light.ttf"),
+    TajawalMedium: require("../Spiro/assets/Fonts/Tajawal-Medium.ttf"),
+    TajawalRegular: require("../Spiro/assets/Fonts/Tajawal-Regular.ttf"),
+  });
 
+<<<<<<< HEAD
 import Share from 'react-native-share';
 
 export default function App() {
@@ -131,3 +145,12 @@ const styles = StyleSheet.create({
     lineHeight: 26,
   },
 });
+=======
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return <Navigation />;
+  }
+}
+const styles = StyleSheet.create({});
+>>>>>>> master2
