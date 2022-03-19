@@ -10,6 +10,9 @@ import Settings from "./Settings";
 import SessionsHistory from "./SessionsHistory";
 import MinutesByTag from "./MinutesByTag";
 import Downloads from "./Downloads";
+import Login from "./Login";
+import Register from "./Register";
+import LoginOptions from "./LoginOptions";
 
 export {
   EnterPin,
@@ -24,4 +27,7 @@ export {
   SessionsHistory,
   MinutesByTag,
   Downloads,
+  Register,
+  Login,
+  LoginOptions,
 };

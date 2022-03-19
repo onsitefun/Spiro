@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import theme from "../../../theme";
 
-export default class GettingStartRegister extends React.Component {
+export default class LoginOptions extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -22,12 +22,12 @@ export default class GettingStartRegister extends React.Component {
     this.props.navigation.navigate("EnterPin");
   };
 
-  SignUpWithEmail = () => {
-    this.props.navigation.navigate("Register");
+  SignInWithEmail = () => {
+    this.props.navigation.navigate("Login");
   };
 
-  GoToLoginPage = () => {
-    this.props.navigation.navigate("LoginOptions");
+  GoToRegisterPage = () => {
+    this.props.navigation.navigate("GettingStart");
   };
 
   render() {
@@ -50,30 +50,16 @@ export default class GettingStartRegister extends React.Component {
           <Text style={styles._title}>Spiro Like a Champ</Text>
         </View>
         <View style={styles._inner_layer}>
-          {/* <Text style={styles._label}>Please enter your email address</Text> */}
-          {/*   ------Email Input------  */}
-          {/* <TextInput
-            placeholder="Email address"
-            placeholderTextColor={theme.black}
-            style={styles._input}
-            value={email}
-            onChangeText={(e) => this.setState({ email: e })}
-          /> */}
-          {/*   ------Continue button------  */}
-          {/* <TouchableOpacity style={styles._btn} onPress={() => this.Continue()}>
-            <Text style={styles._btn_text}>Continue</Text>
-          </TouchableOpacity> */}
-
           {/*   ------Email button------  */}
           <TouchableOpacity
             style={[styles._btn, { backgroundColor: theme.black }]}
-            onPress={() => this.SignUpWithEmail()}
+            onPress={() => this.SignInWithEmail()}
           >
             <Image
               source={require("./../../../assets/email.png")}
               style={styles._btn_icon}
             />
-            <Text style={styles._btn_text}>Sign up with Email</Text>
+            <Text style={styles._btn_text}>Sign in with Email</Text>
           </TouchableOpacity>
           {/*   ------Google button------  */}
           <TouchableOpacity
@@ -83,7 +69,7 @@ export default class GettingStartRegister extends React.Component {
               source={require("./../../../assets/search.png")}
               style={styles._btn_icon}
             />
-            <Text style={styles._btn_text}>Sign up with Google</Text>
+            <Text style={styles._btn_text}>Sign in with Google</Text>
           </TouchableOpacity>
           {/*   ------Apple button------  */}
           <TouchableOpacity
@@ -93,14 +79,15 @@ export default class GettingStartRegister extends React.Component {
               source={require("./../../../assets/apple.png")}
               style={styles._btn_icon}
             />
-            <Text style={styles._btn_text}>Sign up with Apple</Text>
+            <Text style={styles._btn_text}>Sign in with Apple</Text>
           </TouchableOpacity>
           <View style={styles._text_btn_view}>
-            <Text style={styles._text_btn_question}>
-              Already have an account?
-            </Text>
-            <Text style={styles._text_btn} onPress={() => this.GoToLoginPage()}>
-              Login
+            <Text style={styles._text_btn_question}>New here?</Text>
+            <Text
+              style={styles._text_btn}
+              onPress={() => this.GoToRegisterPage()}
+            >
+              Create an account
             </Text>
           </View>
         </View>
