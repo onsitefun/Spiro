@@ -19,7 +19,14 @@ import {
   Settings,
   SessionsHistory,
   MinutesByTag,
-  Downloads
+  Downloads,
+  EditProfile,
+  HelpCenter,
+  TermsAndConditions,
+  PrivacyPolicy,
+  Trial,
+  About,
+
 } from "./../screens";
 import theme from "../../theme";
 import DrawerContent from "./../components/DrawerContent";
@@ -92,6 +99,13 @@ function Navigation() {
         <Stack.Screen name="SessionsHistory" component={SessionsHistory} />
         <Stack.Screen name="MinutesByTag" component={MinutesByTag} />
         <Stack.Screen name="Downloads" component={Downloads} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="HelpCenter" component={HelpCenter} />
+        <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+        <Stack.Screen name="Trial" component={Trial} />
+        <Stack.Screen name="About" component={About} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

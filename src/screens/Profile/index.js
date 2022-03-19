@@ -1,16 +1,20 @@
 import React from "react";
 import Constants from 'expo-constants';
-// import Share from 'react-native-share';
 
-import {View, SafeAreaView, StyleSheet, Dimensions,ScrollView,} from "react-native";
+import theme from "../../../theme";
+import Header from "../../components/Header";
+
+import DrawerNavigation from "../../components/DrawerNavigation";
+
+import {View, StyleSheet, Dimensions,ScrollView,TouchableOpacity} from "react-native";
 import { Title, Caption, Text, TouchableRipple } from "react-native-paper";
 
 import {BarChart,} from "react-native-chart-kit";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import theme from "../../../theme";
-import Header from "../../components/Header";
+// import Share from 'react-native-share';
 
 /*const data = [
 {value: "Category 1",
@@ -33,6 +37,7 @@ const data = {
 */
 
 export default class Profile extends React.Component {
+   
   constructor() {
     super();
     this.state = {};
@@ -43,14 +48,17 @@ const {height} = Dimensions.get("window").height;
 
     return (
 
-       <View style={styles.container}
+       <SafeAreaView style={styles.container}
        height= {height}>
-        <Header title="Hi #first_name" />
-        
+       
+      <DrawerNavigation></DrawerNavigation>
+      <Header title="Hi #first_name" />
+
+
       <View style={styles.infoBoxWrapper}
       height= {70}
       alignItems= "center"
-    justifyContent= "center">
+      justifyContent= "center">
       
           <View style={styles.infoBox}>
             <Title style={styles._header_title}>10</Title>
@@ -69,6 +77,8 @@ const {height} = Dimensions.get("window").height;
 
       </View>
 
+<View marginBottom= {10} justifyContent= {"flex-start"}
+      alignSelf= {"center"}>
 
 <BarChart
     data={{
@@ -95,11 +105,8 @@ const {height} = Dimensions.get("window").height;
       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, 
     }}
-    alignItems= "center"
-    justifyContent= "center"
-    marginBottom= "10"
   />
-
+</View>
 
       <View style={styles.menuWrapper}>
         <TouchableRipple onPress={() => this.props.navigation.navigate("Downloads")}>
@@ -125,28 +132,8 @@ const {height} = Dimensions.get("window").height;
 
       </View>
 
-    </View>
+    </SafeAreaView>
   
-
-        /*{<View>
-          <View style={styles._list}>
-            <Text style={styles._th}>Streak Days</Text>
-            <Text style={styles._td}>3 Days</Text>
-          </View>
-          <View style={styles._list}>
-            <Text style={styles._th}>Total Minutes</Text>
-            <Text style={styles._td}>20 MIN</Text>
-          </View>
-          <View style={styles._list}>
-            <Text style={styles._th}>Sessions</Text>
-            <Text style={styles._td}>2 Sessions</Text>
-          </View>
-        </View>
-        <TouchableOpacity style={[styles._btn]}>
-          <Text style={styles._btn_text}>Ready to Premium?</Text>
-        </TouchableOpacity> 
-      </View>*/
-
       );
     }
   }
@@ -155,6 +142,13 @@ let styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.black,
+    justifyContent: "center"
+  },
+    drawer: {
+    alignSelf: 'flex-end',
+    /*marginTop: -65,
+    marginRight: 5,
+    marginBottom: 50*/
   },
   title: {
     color: theme.white,
@@ -186,7 +180,9 @@ let styles = StyleSheet.create({
   infoBoxWrapper: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignSelf: "center",
+    marginBottom: 15,
   },
   infoBox: {
     alignItems: "center",
@@ -194,6 +190,7 @@ let styles = StyleSheet.create({
     color: theme.white,
     fontFamily: theme.extrabold,
     flex: 1,
+    alignSelf: "center",
     width: Dimensions.get("window").width / 3,
     marginTop:5,
   },

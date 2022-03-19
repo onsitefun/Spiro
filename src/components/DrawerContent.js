@@ -1,12 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableRipple } from "react-native";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
-import { Drawer } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+//import Icon from "react-native-vector-icons/AntDesign";
+
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../theme";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 export default function CustomDrawerContent(props) {
   const navigation = useNavigation();
 
@@ -16,25 +19,69 @@ export default function CustomDrawerContent(props) {
       style={{ backgroundColor: theme.black }}
     >
       <View style={styles.sideMenuContainer}>
-        <View style={styles._profile_container}>
-          <FontAwesome name="user-circle-o" size={44} color={"#969696"} />
-          <Text
-            style={[styles._bold_text, { color: theme.white, marginTop: 30 }]}
-          >
-            Email @Email.com
-          </Text>
-        </View>
-        <Drawer.Section style={{ backgroundColor: "gray", height: 0.5 }} />
-        <TouchableOpacity
-          style={styles._logout_row}
-          onPress={() => navigation.navigate("GettingStart")}
-        >
-          <MaterialCommunityIcons name="logout" size={34} color={theme.white} />
-          <Text style={{ color: "white", fontFamily: theme.TajawalBold }}>
-            Sign Out
-          </Text>
+        
+          <View style={styles.menuWrapper}>
+        <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
+          <View style={styles.menuItem}>
+            <Icon name="pencil" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>Edit Profile</Text>
+          </View>
         </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => navigation.navigate("HelpCenter")}>
+          <View style={styles.menuItem}>
+            <Icon name="help" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>Help Center</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("TermsAndConditions")}>
+          <View style={styles.menuItem}>
+            <Icon name="file" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>Terms & Conditions</Text>
+          </View>
+        </TouchableOpacity>
+
+       <TouchableOpacity onPress={() => navigation.navigate("PrivacyPolicy")}>
+          <View style={styles.menuItem}>
+            <Icon name="shield-account" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>Privacy Policy</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+          <View style={styles.menuItem}>
+            <Icon name="bell-outline" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>Notification Settings</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("Trial")}>
+          <View style={styles.menuItem}>
+            <Icon name="trophy" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>Start 7 days Free Trial</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("About")}>
+          <View style={styles.menuItem}>
+            <Icon name="exclamation" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>About</Text>
+          </View>
+        </TouchableOpacity>
+
       </View>
+
+
+        <TouchableOpacity onPress={() => navigation.navigate("GettingStart")}>
+        <View style={styles.menuItem}>
+          <Icon name="logout" color="#777" size={25}/>
+          <Text style={styles.menuItemText}>Sign Out</Text>
+          </View>
+        </TouchableOpacity>
+
+        </View>
+      
     </DrawerContentScrollView>
   );
 }
@@ -43,6 +90,21 @@ const styles = StyleSheet.create({
   sideMenuContainer: {
     backgroundColor: theme.black,
     flex: 1,
+  },
+   menuWrapper: {
+    marginTop: 20,
+  },
+  menuItem: {
+    flexDirection: "row",
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+  },
+  menuItemText: {
+    color: theme.white,
+    marginLeft: 20,
+    fontWeight: "600",
+    fontSize: 16,
+    lineHeight: 26,
   },
   _profile_container: {
     marginBottom: 20,
@@ -73,3 +135,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+/*
+<View style={styles._profile_container}>
+          <FontAwesome name="user-circle-o" size={44} color={"#969696"} />
+          <Text
+            style={[styles._bold_text, { color: theme.white, marginTop: 30 }]}
+          >
+            Email @Email.com
+          </Text>
+          */

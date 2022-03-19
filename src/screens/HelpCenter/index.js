@@ -4,7 +4,7 @@ import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text } from 'react-nat
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
 
-export default class Downloads extends React.Component {
+export default class HelpCenter extends React.Component {
 
   constructor() {
     super();
@@ -29,7 +29,7 @@ export default class Downloads extends React.Component {
           
 
 </View>
-<Text>Downloads</Text>
+<Text style={styles.text}>HelpCenter</Text>
         </View>
       </SafeAreaView>
       );
