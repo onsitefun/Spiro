@@ -123,12 +123,6 @@ const {height} = Dimensions.get("window").height;
           </View>
         </TouchableRipple>
 
-        <TouchableRipple onPress={() =>this.props.navigation.navigate("Settings")}>
-          <View style={styles.menuItem}>
-            <Icon name="cog" color="#777" size={25}/>
-            <Text style={styles.menuItemText}>Settings</Text>
-          </View>
-        </TouchableRipple>
       </View>
 
     </View>
