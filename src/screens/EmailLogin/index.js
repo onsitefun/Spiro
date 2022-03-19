@@ -9,7 +9,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import theme from "./../../../theme";
+import theme from "../../../theme";
 
 export default class Login extends React.Component {
   constructor() {
