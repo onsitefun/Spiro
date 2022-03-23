@@ -19,7 +19,7 @@ export default class EditProfile extends React.Component {
     let { last_name } = this.state;
 
       return (
-       <SafeAreaView style={styles.container}>
+       <View style={styles._container}>
         <View style={styles._header}>
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <View style={styles._back_btn}>
@@ -29,14 +29,14 @@ export default class EditProfile extends React.Component {
                 color={theme.white}
               />
             </View>
+            <Text style={styles.text}>Edit Profile</Text>
           </TouchableOpacity>
 </View>
-          <View style={styles.container}>
+          <View style={styles._inner_layer}>
           <View style={{marginTop:15,marginBottom: 10,}}>
           
 
-</View>
-<Text style={styles.text}>EditProfile</Text>
+
           {/*   ------FIRST NAME------  */}
           <Text style={styles._title} >First Name</Text>
           <TextInput
@@ -67,13 +67,14 @@ export default class EditProfile extends React.Component {
             <Text style={styles._btn_text}>Delete Account</Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+        </View>
+      </View>
       );
   }
 }
 
 let styles = StyleSheet.create({
-  container: {
+  _container: {
     flex: 1,
     backgroundColor: theme.black,
   },
@@ -93,13 +94,14 @@ let styles = StyleSheet.create({
     lineHeight: 26,
   },
    _input: {
-    backgroundColor: theme.btnBg,
+    backgroundColor: theme.white,
     height: 50,
     borderRadius: 8,
     borderWidth: 2,
     borderColor: theme.black,
     padding: 10,
-    marginBottom: 70,
+    marginBottom: 30,
+    marginLeft: 20,
     fontFamily: theme.TajawalBold,
   },
   _btn: {
@@ -108,7 +110,7 @@ let styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: 50,
-    marginBottom: 20,
+    marginBottom: 5,
     borderRadius: 8,
   },
   _btn_text: {
@@ -127,6 +129,10 @@ let styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginBottom: 20,
+    marginLeft: 20,
+  },
+  _inner_layer: {
+    flex: 2,
   },
 });
 

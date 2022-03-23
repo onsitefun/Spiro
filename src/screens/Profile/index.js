@@ -6,10 +6,10 @@ import Header from "../../components/Header";
 
 import DrawerNavigation from "../../components/DrawerNavigation";
 
-import {View, StyleSheet, Dimensions,ScrollView,TouchableOpacity} from "react-native";
+import {View, StyleSheet, Dimensions,} from "react-native";
 import { Title, Caption, Text, TouchableRipple } from "react-native-paper";
 
-import {BarChart,} from "react-native-chart-kit";
+import {BarChart} from "react-native-chart-kit";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -35,7 +35,8 @@ const data = {
   ]
 };
 */
-
+const { width } = Dimensions.get("window").width;
+const {height} = Dimensions.get("window").height;
 export default class Profile extends React.Component {
    
   constructor() {
@@ -43,15 +44,13 @@ export default class Profile extends React.Component {
     this.state = {};
   }
   render() {
-const { width } = Dimensions.get("window").width;
-const {height} = Dimensions.get("window").height;
 
     return (
 
-       <SafeAreaView style={styles.container}
+       <SafeAreaView style={styles._container}
        height= {height}>
-       
-      <DrawerNavigation></DrawerNavigation>
+       <View style={styles._layer}>
+      <DrawerNavigation style={styles.drawer}></DrawerNavigation>
       <Header title="Hi #first_name" />
 
 
@@ -77,10 +76,9 @@ const {height} = Dimensions.get("window").height;
 
       </View>
 
-<View marginBottom= {10} justifyContent= {"flex-start"}
-      alignSelf= {"center"}>
 
-<BarChart
+<View style={styles.graphBoxWrapper}>
+<BarChart 
     data={{
       labels: ["Category 1", "Category 2", "Category 3", "Category 4"],
       datasets: [
@@ -93,7 +91,7 @@ const {height} = Dimensions.get("window").height;
         }
       ]
     }}
-    width={Dimensions.get("window").width -10} // from react-native
+    width={Dimensions.get("window").width - 20}
     height={170}
     withHorizontalLabels = {false}
     withInnerLines = {false}
@@ -132,6 +130,7 @@ const {height} = Dimensions.get("window").height;
 
       </View>
 
+</View>
     </SafeAreaView>
   
       );
@@ -139,22 +138,27 @@ const {height} = Dimensions.get("window").height;
   }
 
 let styles = StyleSheet.create({
-  container: {
+  _container: {
     flex: 1,
     backgroundColor: theme.black,
-    justifyContent: "center"
   },
-    drawer: {
+  _layer: {
+    padding: 10,
+  },
+  drawer: {
+    //flex: 1,
     alignSelf: 'flex-end',
-    /*marginTop: -65,
+    //padding: 1000,
+   /* marginTop: -1000,
     marginRight: 5,
     marginBottom: 50*/
   },
   title: {
     color: theme.white,
-    fontFamily: theme.extrabold,
-    flex: 1,
-    textAlign: "center"
+    fontFamily: theme.TajawalBold,
+    fontSize: 25,
+    paddingTop: 25,
+    paddingBottom: 5,
   },
   _header_title: {
     color: theme.white,
@@ -193,6 +197,16 @@ let styles = StyleSheet.create({
     alignSelf: "center",
     width: Dimensions.get("window").width / 3,
     marginTop:5,
+  },
+  graphBoxWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "flex-center",
+    marginBottom: 15,
+    marginLeft: 10,
+    marginRight: 10,
+    width: Dimensions.get("window").width,
   },
   menuWrapper: {
     marginTop: 20,
