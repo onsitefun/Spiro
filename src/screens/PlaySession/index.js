@@ -11,6 +11,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import AudioSlider from "./../../components/AudioSlider";
 import AudioFile from "./../../../assets/assets_counting.m4a";
+import RBSheet from "react-native-raw-bottom-sheet";
+import { Foundation } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 export default class PlaySession extends React.Component {
   constructor() {
     super();
@@ -19,56 +23,138 @@ export default class PlaySession extends React.Component {
   render() {
     const tags = ["TAG 1", "TAG 2 TAG 2"];
     return (
-      <View style={styles._container}>
+      <ImageBackground
+        style={styles._container}
+        source={require("./../../../assets/songbg.png")}
+        resizeMode="cover"
+      >
         <View style={styles._header}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <View style={styles._back_btn}>
-              <Ionicons
-                name="chevron-back-outline"
-                size={26}
+          <Foundation
+            name="info"
+            size={30}
+            color="white"
+            onPress={() => this.RBSheet.open()}
+          />
+
+          <Entypo
+            name="cross"
+            size={30}
+            color={theme.white}
+            onPress={() => this.props.navigation.goBack()}
+          />
+        </View>
+
+        <View style={{ flex: 1, justifyContent: "flex-end" }}>
+          <Text style={styles._thumbnail_title}>Title title title</Text>
+          <Text style={[styles._thumbnail_title, { fontSize: 15 }]}>
+            Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
+            sit debitis quaerat qui officiis explicabo. Ea dolores
+            exercitationem.
+          </Text>
+        </View>
+        <View style={{ flex: 1, justifyContent: "flex-end" }}>
+          <AudioSlider audio={AudioFile} />
+          {/* <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 40,
+            }}
+          >
+            <TouchableOpacity>
+              <Foundation name="previous" size={24} color={theme.white} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <AntDesign
+                name="playcircleo"
+                size={74}
+                color={theme.white}
+                style={{ marginHorizontal: 20 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Foundation name="next" size={24} color={theme.white} />
+            </TouchableOpacity>
+          </View> */}
+          <View style={styles._footer}>
+            <MaterialIcons name="favorite" size={30} color={theme.white} />
+            <AntDesign name="download" size={30} color={theme.white} />
+            <AntDesign name="sharealt" size={30} color={theme.white} />
+          </View>
+        </View>
+
+        <RBSheet
+          ref={(ref) => {
+            this.RBSheet = ref;
+          }}
+          height={300}
+          openDuration={250}
+          closeOnDragDown={true}
+          closeOnPressMask={true}
+          customStyles={{
+            container: {
+              backgroundColor: theme.black,
+              padding: 20,
+              borderTopRightRadius: 49,
+              borderTopLeftRadius: 49,
+            },
+          }}
+        >
+          <Text
+            style={{
+              color: theme.white,
+              fontFamily: theme.TajawalBold,
+              fontSize: 22,
+            }}
+          >
+            Title title title
+          </Text>
+          <Text style={styles._desc}>
+            Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
+            sit debitis quaerat qui officiis explicabo. Ea dolores
+            exercitationem.
+          </Text>
+          <View style={styles._tag_row}>
+            {tags.map((val, i) => {
+              return (
+                <TouchableOpacity
+                  key={i}
+                  style={styles._tag}
+                  onPress={() => this.props.navigation.navigate("Tags")}
+                >
+                  <Text style={styles._tag_text}>{val}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+          <Text
+            style={{
+              color: theme.white,
+              fontFamily: theme.TajawalBold,
+              fontSize: 22,
+            }}
+          >
+            Category
+          </Text>
+
+          {/* <View style={styles._footer}> */}
+          {/* <View style={styles._label}>
+              <Text style={styles._label_text}>
+                <Text style={styles._sesion_title}>Favorite</Text>
+              </Text>
+            </View> */}
+          {/* <TouchableOpacity>
+              <MaterialIcons
+                name="favorite-border"
+                size={24}
                 color={theme.white}
               />
-            </View>
-          </TouchableOpacity>
-          <Text style={styles._header_title}>Title title title</Text>
-        </View>
-        <ImageBackground style={styles._thumbnail}>
-          <Text style={styles._thumbnail_title}>Title title title</Text>
-          <Text style={styles._thumbnail_title_secondary}>10 Sessions</Text>
-        </ImageBackground>
-        <AudioSlider audio={AudioFile} />
-        <View style={styles._tag_row}>
-          {tags.map((val, i) => {
-            return (
-              <TouchableOpacity
-                key={i}
-                style={styles._tag}
-                onPress={() => this.props.navigation.navigate("Tags")}
-              >
-                <Text style={styles._tag_text}>{val}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-        <Text style={styles._desc}>
-          Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae sit
-          debitis quaerat qui officiis explicabo. Ea dolores exercitationem.
-        </Text>
-        <View style={styles._footer}>
-          <View style={styles._label}>
-            <Text style={styles._label_text}>
-              <Text style={styles._sesion_title}>Favorite</Text>
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <MaterialIcons
-              name="favorite-border"
-              size={24}
-              color={theme.white}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+            </TouchableOpacity> */}
+          {/* <MaterialIcons name="favorite" size={24} color="black" /> */}
+          {/* </View> */}
+        </RBSheet>
+      </ImageBackground>
     );
   }
 }
@@ -76,7 +162,7 @@ export default class PlaySession extends React.Component {
 let styles = StyleSheet.create({
   _container: {
     flex: 1,
-    backgroundColor: theme.black,
+    // backgroundColor: theme.black,
     padding: 10,
     paddingTop: 30,
   },
@@ -88,13 +174,12 @@ let styles = StyleSheet.create({
   _header_title: {
     color: theme.white,
     fontFamily: theme.extrabold,
-    flex: 1,
-    textAlign: "center",
-    marginRight: 40,
   },
   _header: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    padding: 10,
   },
   _thumbnail: {
     height: 292,
@@ -105,20 +190,10 @@ let styles = StyleSheet.create({
     paddingLeft: 20,
     marginTop: 30,
   },
-  // _thumbnail_title: {
-  //   color: theme.white,
-  //   fontFamily: theme.extrabold,
-  //   fontSize: 17,
-  // },
   _thumbnail_title: {
-    fontFamily: theme.TajawalBold,
     color: theme.white,
-    textTransform: "uppercase",
-  },
-  _thumbnail_title_secondary: {
-    fontFamily: theme.regular,
-    color: theme.white,
-    textTransform: "capitalize",
+    fontFamily: theme.extrabold,
+    fontSize: 17,
   },
   _desc: {
     color: theme.white,
@@ -155,12 +230,10 @@ let styles = StyleSheet.create({
   },
   _footer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
-    marginTop: 100,
-    borderTopWidth: 1,
     borderColor: theme.grey,
-    paddingVertical: 10,
+    paddingBottom: 30,
   },
   _tag: {
     backgroundColor: theme.grey,
@@ -176,5 +249,6 @@ let styles = StyleSheet.create({
   },
   _tag_row: {
     flexDirection: "row",
+    marginVertical: 20,
   },
 });

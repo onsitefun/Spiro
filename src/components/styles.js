@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   StandardText: {
     fontSize: 10,
     padding: 6,
-    color: standardsStylesObject.color,
+    color: theme.white,
     fontFamily: theme.medium,
   },
   StandardContainer: {
