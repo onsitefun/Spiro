@@ -10,7 +10,7 @@ export default {
   ],
   err: "#FF0000",
   grey: "#1F1F1F",
-  greyLight: "#0000004F",
+  greyLight: "#4D4D4D",
   btnBg: "#0000004E",
   black: "#000000",
   white: "#FFFFFF",

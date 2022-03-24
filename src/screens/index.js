@@ -13,6 +13,7 @@ import Downloads from "./Downloads";
 import Login from "./EmailLogin";
 import Register from "./Register";
 import LoginOptions from "./LoginOptions";
+import OnBoarding from "./OnBoarding";
 
 export {
   EnterPin,
@@ -30,4 +31,5 @@ export {
   Register,
   Login,
   LoginOptions,
+  OnBoarding,
 };

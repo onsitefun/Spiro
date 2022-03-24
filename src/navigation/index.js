@@ -23,6 +23,7 @@ import {
   LoginOptions,
   Login,
   Register,
+  OnBoarding,
 } from "./../screens";
 import theme from "../../theme";
 import DrawerContent from "./../components/DrawerContent";
@@ -85,6 +86,7 @@ function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="GettingStart" component={GettingStart} />
         <Stack.Screen name="Home" component={DrawerNavigator} />
         <Stack.Screen name="EnterPin" component={EnterPin} />
