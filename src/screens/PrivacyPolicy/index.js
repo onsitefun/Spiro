@@ -21,6 +21,7 @@ export default class PrivacyPolicy extends React.Component {
                 size={26}
                 color={theme.white}
               />
+              <Text style={styles.text}>Privacy Policy</Text>
             </View>
           </TouchableOpacity>
 </View>
@@ -29,7 +30,7 @@ export default class PrivacyPolicy extends React.Component {
           
 
 </View>
-<Text style={styles.text}>PrivacyPolicy</Text>
+
         </View>
       </SafeAreaView>
       );
@@ -55,5 +56,11 @@ let styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
     lineHeight: 26,
+  },
+  _back_btn:{
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
   },
 });

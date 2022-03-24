@@ -30,6 +30,7 @@ export default class Settings extends React.Component {
                 size={26}
                 color={theme.white}
               />
+              <Text style={styles.text}>Notification Settings</Text>
             </View>
           </TouchableOpacity>
 </View>
@@ -63,6 +64,12 @@ let styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
     lineHeight: 26,
+  },
+  _back_btn:{
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
   },
 });
 

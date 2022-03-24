@@ -50,10 +50,11 @@ export default class Profile extends React.Component {
        <SafeAreaView style={styles._container}
        height= {height}>
        <View style={styles._layer}>
-      <DrawerNavigation style={styles.drawer}></DrawerNavigation>
-      <Header title="Hi #first_name" />
-
-
+       <View style={styles._drawer_view}>
+         <Header title="Hi #first_name" />
+         <DrawerNavigation style={styles.drawer}></DrawerNavigation>
+       </View>
+      
       <View style={styles.infoBoxWrapper}
       height= {70}
       alignItems= "center"
@@ -143,15 +144,18 @@ let styles = StyleSheet.create({
     backgroundColor: theme.black,
   },
   _layer: {
-    padding: 10,
+    padding: 1,
   },
   drawer: {
     //flex: 1,
-    alignSelf: 'flex-end',
-    //padding: 1000,
-   /* marginTop: -1000,
-    marginRight: 5,
-    marginBottom: 50*/
+    alignSelf: "flex-start",
+    alignItems: "flex-start",
+  },
+  _drawer_view:{
+    flexDirection: "row",
+    justifyContent: "space-between",
+   // alignItems: "center",
+    marginBottom: 15,
   },
   title: {
     color: theme.white,
@@ -202,10 +206,10 @@ let styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "stretch",
+    alignSelf: "center",
     marginBottom: 15,
-    marginLeft: 10,
-    marginRight: 10,
+   // marginLeft: 10,
+   // marginRight: 10,
     width: Dimensions.get("window").width,
   },
   menuWrapper: {
