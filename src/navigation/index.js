@@ -16,8 +16,6 @@ import {
   Profile,
   Tags,
   PlaySession,
-<<<<<<< Updated upstream
-=======
   Settings,
   SessionsHistory,
   MinutesByTag,
@@ -26,7 +24,6 @@ import {
   Login,
   Register,
   OnBoarding,
->>>>>>> Stashed changes
 } from "./../screens";
 import theme from "../../theme";
 import DrawerContent from "./../components/DrawerContent";
@@ -96,6 +93,13 @@ function Navigation() {
         <Stack.Screen name="Journey" component={Journey} />
         <Stack.Screen name="PlaySession" component={PlaySession} />
         <Stack.Screen name="Tags" component={Tags} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="SessionsHistory" component={SessionsHistory} />
+        <Stack.Screen name="MinutesByTag" component={MinutesByTag} />
+        <Stack.Screen name="Downloads" component={Downloads} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="LoginOptions" component={LoginOptions} />
       </Stack.Navigator>
     </NavigationContainer>
   );

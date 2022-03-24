@@ -1,22 +1,57 @@
 import React from "react";
-import { View, SafeAreaView, StyleSheet } from "react-native";
+import Constants from 'expo-constants';
+// import Share from 'react-native-share';
+
+import {View, SafeAreaView, StyleSheet, Dimensions,ScrollView,} from "react-native";
+import { Title, Caption, Text, TouchableRipple } from "react-native-paper";
+
+import {BarChart,} from "react-native-chart-kit";
+
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import theme from "../../../theme";
 import Header from "../../components/Header";
-import { Title, Caption, Text, TouchableRipple } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-// import Share from 'react-native-share';
+
+/*const data = [
+{value: "Category 1",
+value: 10,},
+{value: "Category 2",
+value: 20,},
+{value: "Category 3",
+value: 50,},
+{value: "Category 4",
+value: 30,},
+];
+const data = {
+  labels: ["January", "February", "March", "April", "May", "June"],
+  datasets: [
+    {
+      data: [20, 45, 28, 80, 99, 43]
+    }
+  ]
+};
+*/
+
 export default class Profile extends React.Component {
   constructor() {
     super();
     this.state = {};
   }
   render() {
+const { width } = Dimensions.get("window").width;
+const {height} = Dimensions.get("window").height;
+
     return (
-       <View style={styles.container}>
-        <Header title="Profile" />
-        <View style={{marginTop:5,marginBottom: 10,}}></View>
-          
-      <View style={styles.infoBoxWrapper}>
+
+       <View style={styles.container}
+       height= {height}>
+        <Header title="Hi #first_name" />
+        
+      <View style={styles.infoBoxWrapper}
+      height= {70}
+      alignItems= "center"
+    justifyContent= "center">
+      
           <View style={styles.infoBox}>
             <Title style={styles._header_title}>10</Title>
             <Caption style={styles.caption}>Streak Days</Caption>
@@ -34,31 +69,60 @@ export default class Profile extends React.Component {
 
       </View>
 
+
+<BarChart
+    data={{
+      labels: ["Category 1", "Category 2", "Category 3", "Category 4"],
+      datasets: [
+        {
+          data: [10 ,20 ,40 ,30],
+          colors: [(opacity = 1) => '#139',
+          (opacity = 1) => '#299',
+          (opacity = 1) => '#509',
+          (opacity = 1) => '#933']
+        }
+      ]
+    }}
+    width={Dimensions.get("window").width -10} // from react-native
+    height={170}
+    withHorizontalLabels = {false}
+    withInnerLines = {false}
+    withCustomBarColorFromData={true}
+    flatColor={true}
+    fromZero={true}
+    chartConfig={{
+      backgroundColor: "#000",
+      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, 
+    }}
+    alignItems= "center"
+    justifyContent= "center"
+    marginBottom= "10"
+  />
+
+
       <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => this.props.navigation.navigate("Downloads")}>
           <View style={styles.menuItem}>
-            <Icon name="credit-card" color="#777" size={25}/>
-            <Text style={styles.menuItemText}>Payment</Text>
+            <Icon name="download" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>Downloads</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={styles}>
-          <View style={styles.menuItem}>
-            <Icon name="share-outline" color="#777" size={25}/>
-            <Text style={styles.menuItemText}>Share Your Achievements</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        
+        <TouchableRipple onPress={() => this.props.navigation.navigate("SessionsHistory")}>
           <View style={styles.menuItem}>
             <Icon name="history" color="#777" size={25}/>
             <Text style={styles.menuItemText}>Sessions History</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+
+        <TouchableRipple onPress={() => this.props.navigation.navigate("MinutesByTag")}>
           <View style={styles.menuItem}>
-            <Icon name="cog" color="#777" size={25}/>
-            <Text style={styles.menuItemText}>Settings</Text>
+            <Icon name="chart-bar" color="#777" size={25}/>
+            <Text style={styles.menuItemText}>Minutes by tag</Text>
           </View>
         </TouchableRipple>
+
       </View>
 
     </View>
@@ -78,30 +142,25 @@ export default class Profile extends React.Component {
             <Text style={styles._td}>2 Sessions</Text>
           </View>
         </View>
-
         <TouchableOpacity style={[styles._btn]}>
           <Text style={styles._btn_text}>Ready to Premium?</Text>
         </TouchableOpacity> 
       </View>*/
-    );
+
+      );
+    }
   }
-}
 
 let styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.black,
   },
-  userInfoSection: {
-    paddingHorizontal: 30,
-    marginBottom: 25,
-  },
   title: {
     color: theme.white,
     fontFamily: theme.extrabold,
     flex: 1,
-    textAlign: "center",
-    marginRight: 40,
+    textAlign: "center"
   },
   _header_title: {
     color: theme.white,
@@ -126,23 +185,24 @@ let styles = StyleSheet.create({
   },
   infoBoxWrapper: {
     flexDirection: "row",
-    height: 70,
-    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center"
   },
   infoBox: {
-    width: "33.33%",
     alignItems: "center",
     justifyContent: "center",
     color: theme.white,
     fontFamily: theme.extrabold,
     flex: 1,
+    width: Dimensions.get("window").width / 3,
+    marginTop:5,
   },
   menuWrapper: {
-    marginTop: 10,
+    marginTop: 20,
   },
   menuItem: {
     flexDirection: "row",
-    paddingVertical: 15,
+    paddingVertical: 10,
     paddingHorizontal: 30,
   },
   menuItemText: {
