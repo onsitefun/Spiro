@@ -33,13 +33,22 @@ export default class Settings extends React.Component {
               <Text style={styles.text}>Notification Settings</Text>
             </View>
           </TouchableOpacity>
-</View>
-          <View style={styles.container}>
-          <View style={{marginTop:15,marginBottom: 10,}}>
-          <Text style={styles.text}>notification     <Switch></Switch></Text>
-
-</View>
         </View>
+          <View style={styles.container}>
+
+           <View style={styles.content_container}>
+             <Text style={styles.content_subtitle}>Helpful Notifications</Text>
+             <Switch></Switch>
+           </View>
+           <Text style={styles.content_text} >Support, inspiration and reminders to keep your practice going.</Text>
+
+           <View style={styles.content_container}>
+             <Text style={styles.content_subtitle}>Mail Newsletter</Text>
+             <Switch></Switch>
+           </View>
+           <Text style={styles.content_text} >Support, inspiration and news, just in your mail.</Text>
+
+          </View>
       </SafeAreaView>
       );
   }
@@ -54,6 +63,12 @@ let styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.black,
   },
+  content_container: {
+    marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 15,
+  },
   _header: {
     flexDirection: "row",
     alignItems: "center",
@@ -63,6 +78,20 @@ let styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: "600",
     fontSize: 16,
+    lineHeight: 26,
+  },
+  content_subtitle: {
+    color: theme.white,
+    marginLeft: 20,
+    fontWeight: "600",
+    fontSize: 16,
+    lineHeight: 26,
+  },
+  content_text: {
+    color: '#777',
+    marginLeft: 35,
+    fontWeight: "600",
+    fontSize: 14,
     lineHeight: 26,
   },
   _back_btn:{

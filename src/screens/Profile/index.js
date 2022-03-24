@@ -35,7 +35,7 @@ const data = {
   ]
 };
 */
-const { width } = Dimensions.get("window").width;
+const { screen_width } = Dimensions.get("window").width;
 const {height} = Dimensions.get("window").height;
 export default class Profile extends React.Component {
    
@@ -50,10 +50,10 @@ export default class Profile extends React.Component {
        <SafeAreaView style={styles._container}
        height= {height}>
        <View style={styles._layer}>
-       <View style={styles._drawer_view}>
-         <Header title="Hi #first_name" />
-         <DrawerNavigation style={styles.drawer}></DrawerNavigation>
-       </View>
+       <DrawerNavigation style={styles.drawer}></DrawerNavigation>
+       <Text style={styles.header_title}>Hi #first_name</Text>
+       
+      
       
       <View style={styles.infoBoxWrapper}
       height= {70}
@@ -92,7 +92,7 @@ export default class Profile extends React.Component {
         }
       ]
     }}
-    width={Dimensions.get("window").width - 20}
+    width={Dimensions.get("window").width}
     height={170}
     withHorizontalLabels = {false}
     withInnerLines = {false}
@@ -144,18 +144,20 @@ let styles = StyleSheet.create({
     backgroundColor: theme.black,
   },
   _layer: {
-    padding: 1,
+    padding: 2,
+  },
+  header_title: {
+    paddingTop: 10,
+    paddingStart: 15,
+    color: theme.white,
+    fontFamily: theme.extrabold,
+    fontSize: 40,
+    marginBottom: 17,
   },
   drawer: {
     //flex: 1,
-    alignSelf: "flex-start",
-    alignItems: "flex-start",
-  },
-  _drawer_view:{
-    flexDirection: "row",
-    justifyContent: "space-between",
-   // alignItems: "center",
-    marginBottom: 15,
+    alignSelf: "flex-end",
+    alignItems: "flex-end",
   },
   title: {
     color: theme.white,
@@ -208,8 +210,6 @@ let styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     marginBottom: 15,
-   // marginLeft: 10,
-   // marginRight: 10,
     width: Dimensions.get("window").width,
   },
   menuWrapper: {

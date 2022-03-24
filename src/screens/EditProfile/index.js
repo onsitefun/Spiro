@@ -136,7 +136,7 @@ let styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginBottom: 20,
-    marginLeft: 20,
+    marginLeft: 22,
   },
   _inner_layer: {
     flex: 2,
