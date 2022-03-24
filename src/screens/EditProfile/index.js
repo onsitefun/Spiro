@@ -19,7 +19,7 @@ export default class EditProfile extends React.Component {
     let { last_name } = this.state;
 
       return (
-       <View style={styles._container}>
+       <SafeAreaView style={styles._container}>
         <View style={styles._header}>
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <View style={styles._back_btn}>
@@ -28,8 +28,8 @@ export default class EditProfile extends React.Component {
                 size={26}
                 color={theme.white}
               />
+              <Text style={styles.text}>Edit Profile</Text>
             </View>
-            <Text style={styles.text}>Edit Profile</Text>
           </TouchableOpacity>
 </View>
           <View style={styles._inner_layer}>
@@ -68,7 +68,7 @@ export default class EditProfile extends React.Component {
           </TouchableOpacity>
         </View>
         </View>
-      </View>
+      </SafeAreaView>
       );
   }
 }
@@ -100,8 +100,9 @@ let styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: theme.black,
     padding: 10,
-    marginBottom: 30,
+    marginBottom: 25,
     marginLeft: 20,
+    marginRight: 20,
     fontFamily: theme.TajawalBold,
   },
   _btn: {
@@ -112,6 +113,12 @@ let styles = StyleSheet.create({
     height: 50,
     marginBottom: 5,
     borderRadius: 8,
+  },
+  _back_btn:{
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
   },
   _btn_text: {
     color: theme.white,
