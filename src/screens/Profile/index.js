@@ -148,10 +148,11 @@ let styles = StyleSheet.create({
   },
   _layer: {
     padding: 2,
+    margin: 5,
   },
   header_title: {
     paddingTop: 10,
-    paddingStart: 15,
+    paddingStart: 10,
     color: theme.white,
     fontFamily: theme.extrabold,
     fontSize: 40,
@@ -223,7 +224,7 @@ let styles = StyleSheet.create({
   menuItem: {
     flexDirection: "row",
     paddingVertical: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
   },
   menuItemText: {
     color: theme.white,

@@ -1,6 +1,6 @@
 // Dependencies
 import React, {useState} from 'react';
-import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text, Switch } from 'react-native';
+import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text,Switch } from 'react-native';
 
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,13 +12,12 @@ export default class Settings extends React.Component {
   constructor() {
     super();
     this.state = {};
+     switchValueNotifications: false;
+     switchValueMail: false;
   }
   
   render(){
- const [isEnabled, setIsEnabled] = useState(true);
- const toggleSwitch = () => {
-      setIsEnabled(previousState => !previousState)
- }
+
       return (
         
        <SafeAreaView style={styles.container}>
@@ -38,21 +37,18 @@ export default class Settings extends React.Component {
 
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Helpful Notifications</Text>
-             <Switch trackColor={{false: 'grey', true: 'tomato'}}
-                     thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
-                     ios_backgroundColor= 'grey'
-                     onValueChange={toggleSwitch}
-                     value={isEnabled}></Switch>
+             <Switch  value={this.state.switchValueNotifications}  
+                      onValueChange ={(switchValueNotifications)=>this.setState({switchValueNotifications})}></Switch>
            </View>
            <Text style={styles.content_text} >Support, inspiration and reminders to keep your practice going.</Text>
 
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Mail Newsletter</Text>
-             <Switch trackColor={{false: 'grey', true: 'tomato'}}
-                     thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
-                     ios_backgroundColor= 'grey'
-                     onValueChange={toggleSwitch}
-                     value={isEnabled}></Switch>
+             <Switch value={this.state.switchValueMail}
+                   //  trackColor={{false: 'grey', true: '#c9dc87'}}
+                  //   thumbColor='#fff'
+                     onValueChange ={(switchValueMail)=>this.setState({switchValueMail})}></Switch>
+
            </View>
            <Text style={styles.content_text} >Support, inspiration and news, just in your mail.</Text>
 
