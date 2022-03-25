@@ -1,17 +1,11 @@
-//import  SettingsPage from "./src/components/SettingsPage";
-/*import SectionRow from "./src/components/SectionRow";
-import BaseRow from "./src/components/BaseRow";
-import NavigateRow from "./src/components/NavigateRow";
-import CheckRow from "./src/components/CheckRow";
-import SliderRow from "./src/components/SliderRow";*/
-
 // Dependencies
-import React from 'react';
-import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text } from 'react-native';
+import React, {useState} from 'react';
+import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text, Switch } from 'react-native';
 
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
-import Switch from "../../components/Switch";
+//import Switch from "../../components/Switch";
+
 
 export default class Settings extends React.Component {
 
@@ -19,8 +13,14 @@ export default class Settings extends React.Component {
     super();
     this.state = {};
   }
+  
   render(){
+ const [isEnabled, setIsEnabled] = useState(true);
+ const toggleSwitch = () => {
+      setIsEnabled(previousState => !previousState)
+ }
       return (
+        
        <SafeAreaView style={styles.container}>
         <View style={styles._header}>
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
@@ -38,13 +38,21 @@ export default class Settings extends React.Component {
 
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Helpful Notifications</Text>
-             <Switch></Switch>
+             <Switch trackColor={{false: 'grey', true: 'tomato'}}
+                     thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
+                     ios_backgroundColor= 'grey'
+                     onValueChange={toggleSwitch}
+                     value={isEnabled}></Switch>
            </View>
            <Text style={styles.content_text} >Support, inspiration and reminders to keep your practice going.</Text>
 
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Mail Newsletter</Text>
-             <Switch></Switch>
+             <Switch trackColor={{false: 'grey', true: 'tomato'}}
+                     thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
+                     ios_backgroundColor= 'grey'
+                     onValueChange={toggleSwitch}
+                     value={isEnabled}></Switch>
            </View>
            <Text style={styles.content_text} >Support, inspiration and news, just in your mail.</Text>
 

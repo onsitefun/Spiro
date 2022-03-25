@@ -48,7 +48,8 @@ export default class Profile extends React.Component {
     return (
 
        <SafeAreaView style={styles._container}
-       height= {height}>
+       height= {height}
+       width= {screen_width}>
        <View style={styles._layer}>
        <DrawerNavigation style={styles.drawer}></DrawerNavigation>
        <Text style={styles.header_title}>Hi #first_name</Text>
@@ -102,7 +103,9 @@ export default class Profile extends React.Component {
     chartConfig={{
       backgroundColor: "#000",
       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, 
+      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      flex: 1,
+      marginBottom: 20,
     }}
   />
 </View>
@@ -193,6 +196,7 @@ let styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     marginBottom: 15,
+    flex: 1,
   },
   infoBox: {
     alignItems: "center",
@@ -205,11 +209,12 @@ let styles = StyleSheet.create({
     marginTop:5,
   },
   graphBoxWrapper: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
-    marginBottom: 15,
+    marginBottom: 20,
     width: Dimensions.get("window").width,
   },
   menuWrapper: {
