@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text,TextInput } from 'react-native';
+import { Alert, SafeAreaView, View, StyleSheet, TouchableOpacity,Text,TextInput } from 'react-native';
 
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,6 +13,22 @@ export default class EditProfile extends React.Component {
       last_name: "Last Name",
     };
   }
+
+  showAlert = () => {  
+    console.log('showAlert');
+        Alert.alert(  
+            'Deleting Account',  
+            'Are you sure you want to delete your account?',  
+            [  
+                {  
+                    text: 'Cancel',  
+                    onPress: () => console.log('Cancel Pressed'),  
+                    style: 'cancel',  
+                },  
+                {text: 'OK', onPress: () => console.log('OK Pressed')},  
+            ]  
+        );  
+    };  
 
   render(){
     let { first_name } = this.state;
@@ -41,7 +57,6 @@ export default class EditProfile extends React.Component {
           <Text style={styles._title} >First Name</Text>
           <TextInput
             placeholder="First Name"
-            text="First Name"
             placeholderTextColor={theme.grey}
             style={styles._input}
             value={first_name}
@@ -51,10 +66,9 @@ export default class EditProfile extends React.Component {
           <Text style={styles._title} >Last Name</Text>
           <TextInput
             placeholder="Last Name"
-            text="Last Name"
             placeholderTextColor={theme.grey}
             style={styles._input}
-            value={first_name}
+            value={last_name}
             onChangeText={(last) => this.setState({ last_name: last })}
           />
           {/*   ------SAVE button------  */}
@@ -63,7 +77,7 @@ export default class EditProfile extends React.Component {
           </TouchableOpacity>
 
           {/*   ------DELETE button------  */}
-          <TouchableOpacity style={styles._btn} onPress={() => {}}>
+          <TouchableOpacity style={styles._btn} onPress={() => this.showAlert()}>
             <Text style={styles._btn_text}>Delete Account</Text>
           </TouchableOpacity>
         </View>

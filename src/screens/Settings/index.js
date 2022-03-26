@@ -42,13 +42,11 @@ export default class Settings extends React.Component {
            </View>
            <Text style={styles.content_text} >Support, inspiration and reminders to keep your practice going.</Text>
 
+
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Mail Newsletter</Text>
              <Switch value={this.state.switchValueMail}
-                   //  trackColor={{false: 'grey', true: '#c9dc87'}}
-                  //   thumbColor='#fff'
                      onValueChange ={(switchValueMail)=>this.setState({switchValueMail})}></Switch>
-
            </View>
            <Text style={styles.content_text} >Support, inspiration and news, just in your mail.</Text>
 

@@ -14,8 +14,6 @@ import {BarChart} from "react-native-chart-kit";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// import Share from 'react-native-share';
-
 /*const data = [
 {value: "Category 1",
 value: 10,},
@@ -79,7 +77,7 @@ export default class Profile extends React.Component {
       </View>
 
 
-<View style={styles.graphBoxWrapper}>
+<View style={styles.graphBoxWrapper} >
 <BarChart 
     data={{
       labels: ["Category 1", "Category 2", "Category 3", "Category 4"],
@@ -93,19 +91,24 @@ export default class Profile extends React.Component {
         }
       ]
     }}
-    width={Dimensions.get("window").width}
+    width={Dimensions.get("window").width / 2}
     height={170}
     withHorizontalLabels = {false}
     withInnerLines = {false}
     withCustomBarColorFromData={true}
     flatColor={true}
     fromZero={true}
+    position="center"
+
     chartConfig={{
       backgroundColor: "#000",
       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       flex: 1,
       marginBottom: 20,
+      alignItems: "center",
+      justifyContent: "center",
+      orientation: "center",
     }}
   />
 </View>
@@ -216,7 +219,7 @@ let styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     marginBottom: 20,
-    width: Dimensions.get("window").width,
+    width: Dimensions.get("window").width ,
   },
   menuWrapper: {
     marginTop: 20,
