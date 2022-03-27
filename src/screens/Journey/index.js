@@ -119,7 +119,7 @@ export default class Journey extends React.Component {
 {
   this.state.isSubscribed ?
               null
-              : <BlurView intensity={100} tint={"dark"} style={styles.upper_layer}>
+              : <BlurView intensity={90} tint={"dark"} style={styles.upper_layer}>
                     <TouchableOpacity style={styles._btn} onPress={() => this.props.navigation.navigate("Trial")}>
                      <Text style={styles.box_text2}>Start Journey</Text>
                     </TouchableOpacity>
@@ -208,16 +208,13 @@ let styles = StyleSheet.create({
     paddingVertical: 10,
   },
   upper_layer: {
+    flex: 1,
     alignItems: "center",
     flexDirection: "row",
-    padding: 20,
-    paddingTop: Dimensions.get("window").height / 4,
-   // marginBottom: 20,
-    flex: 1,
+    paddingTop: Dimensions.get("window").height / 6,
     bottom: 0,
-    position: 'absolute',
-    width: Dimensions.get("window").width - 20,
-    
+   // position: 'absolute',
+  //  width: Dimensions.get("window").width ,
   },
     _btn: {
     flex: 1,
@@ -229,6 +226,7 @@ let styles = StyleSheet.create({
     padding: 10,
     marginLeft: 20,
     marginRight: 20,
+    marginBottom: 5,
     borderRadius: 8,
   },
     box_text2: {

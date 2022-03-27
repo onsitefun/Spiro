@@ -220,7 +220,8 @@ let styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 20,
     width: Dimensions.get("window").width ,
-    paddingHorizontal: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   menuWrapper: {
     marginTop: 20,
