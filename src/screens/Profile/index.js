@@ -91,7 +91,7 @@ export default class Profile extends React.Component {
         }
       ]
     }}
-    width={Dimensions.get("window").width / 2}
+    width={Dimensions.get("window").width}
     height={170}
     withHorizontalLabels = {false}
     withInnerLines = {false}
