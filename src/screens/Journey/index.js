@@ -211,7 +211,7 @@ let styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: 20,
-    paddingTop: Dimensions.get("window").height / 3,
+    paddingTop: Dimensions.get("window").height / 4,
    // marginBottom: 20,
     flex: 1,
     bottom: 0,
