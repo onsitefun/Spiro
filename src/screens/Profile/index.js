@@ -33,8 +33,7 @@ const data = {
   ]
 };
 */
-const { screen_width } = Dimensions.get("window").width;
-const {height} = Dimensions.get("window").height;
+
 export default class Profile extends React.Component {
    
   constructor() {
@@ -194,7 +193,7 @@ let styles = StyleSheet.create({
     marginBottom: 10,
   },
   infoBoxWrapper: {
-   // flex: 1,
+  //  flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -206,13 +205,13 @@ let styles = StyleSheet.create({
     justifyContent: "center",
     color: theme.white,
     fontFamily: theme.extrabold,
-    flex: 1,
+   // flex: 1,
     alignSelf: "center",
     width: Dimensions.get("window").width / 3,
     marginTop:5,
   },
   graphBoxWrapper: {
-  //  flex: 1,
+ //   flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -222,9 +221,6 @@ let styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
-  graph_cog:{
-      
-    },
   menuWrapper: {
     marginTop: 20,
   },
@@ -240,7 +236,6 @@ let styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 26,
   },
-
   // _btn: {
   //   backgroundColor: theme.white,
   //   flexDirection: "row",

@@ -5,8 +5,7 @@ import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const {height} = Dimensions.get("window").height;
-const { screen_width } = Dimensions.get("window").width;
+
 export default class Trial extends React.Component {
 
   constructor() {
@@ -14,10 +13,9 @@ export default class Trial extends React.Component {
     this.state = {};
   }
   render(){
+   
       return (
-      <SafeAreaView style={styles.container}
-       height= {height}
-       width={screen_width}>
+      <SafeAreaView style={styles.container}>
 
         <View style={styles._header}>
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
@@ -37,15 +35,15 @@ export default class Trial extends React.Component {
             <Text style={styles.text}>Unlock Spiro Pro for all your team at a fixed price, forever!</Text>
              
 <View style={styles.menuWrapper}>
-            <View style={styles.menuItem}>
+            <View style={styles.menuItemChecks}>
               <Icon name="check" color="#c9dc87" size={25} marginRight={100}/>
               <Text style={styles.menuItemText}>Unlimited access to all 200+ sessions</Text>
             </View>
-            <View style={styles.menuItem}>
+            <View style={styles.menuItemChecks}>
               <Icon name="check" color="#c9dc87" size={25}/>
               <Text style={styles.menuItemText}>Progress Tracking</Text>
             </View>
-            <View style={styles.menuItem}>
+            <View style={styles.menuItemChecks}>
               <Icon name="check" color="#c9dc87" size={25}/>
               <Text style={styles.menuItemText}>Unlock top breathwork facilitators</Text>
             </View>
@@ -86,13 +84,14 @@ export default class Trial extends React.Component {
               <Text style={styles.box_text2}>Try free and subscribe</Text>
              </TouchableOpacity>
             </View> */}
-</View>
-
             <View style={styles.menuItem}>
              <TouchableOpacity style={styles._btn}>
               <Text style={styles.box_text2}>Try free and subscribe</Text>
              </TouchableOpacity>
             </View>
+</View>
+
+            
 
         </View>
 
@@ -108,7 +107,7 @@ let styles = StyleSheet.create({
     padding:5
   },
   content: {
-    flex: 1,
+   // flex: 1,
     backgroundColor: theme.black,
   },
   _header: {
@@ -124,10 +123,10 @@ let styles = StyleSheet.create({
     textAlign: "center",
   },
   boxWrapper: {
+   // flex:1,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    flex: 1,
     padding: 5
   },
   box_text1: {
@@ -164,17 +163,28 @@ let styles = StyleSheet.create({
     textAlign: "center",
   },
   menuWrapper: {
-    flex: 1,
+   // flex: 1,
     flexDirection: "column",
     marginTop: 20,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    width: Dimensions.get("window").width,
+    justifyContent: "center",
+    alignItems: "center",
+    //width: Dimensions.get("window").width,
   },
   menuItem: {
+   // flex:1,
     flexDirection: "row",
     paddingVertical: 10,
     paddingHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    width: Dimensions.get("window").width,
+  },
+  menuItemChecks: {
+    flexDirection: "row",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    justifyContent: "flex-start",
+    width: Dimensions.get("window").width,
   },
   menuItemText: {
     color: theme.white,
@@ -184,35 +194,39 @@ let styles = StyleSheet.create({
     lineHeight: 26,
   },
   _box_yearly: {
+   flex:1,
     width: (Dimensions.get("window").width / 2) - 30,
     height: 190,
     borderRadius: 10,
     margin: 10,
     marginTop: 20,
    // flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#c9dc87",
   },
    _box_monthly: {
+     flex:1,
     width: (Dimensions.get("window").width / 2) - 30,
     height: 190,
     borderRadius: 10,
     margin: 10,
     marginTop: 20,
    // flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#fff8dc",
   },
   _btn: {
     flex: 1,
     backgroundColor: "#c9dc87",
-  //  flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     height: 50,
     padding: 10,
     marginLeft: 20,
     marginRight: 20,
+    marginBottom:30,
     borderRadius: 8,
   },
 });
