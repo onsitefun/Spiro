@@ -46,8 +46,7 @@ export default class Profile extends React.Component {
     return (
 
        <SafeAreaView style={styles._container}
-       height= {height}
-       width= {screen_width}>
+       height= {height}>
        <View style={styles._layer}>
        <DrawerNavigation style={styles.drawer}></DrawerNavigation>
        <Text style={styles.header_title}>Hi #first_name</Text>
