@@ -77,7 +77,10 @@ export default class Journey extends React.Component {
           <Text style={styles._thumbnail_title}>Title title title</Text>
           <Text style={styles._thumbnail_title_secondary}>10 Sessions</Text>
         </ImageBackground>
-        <ScrollView>
+        {this.state.isSubscribed ? 
+        <ScrollView >
+        
+        
           <Text style={styles._desc}>
             Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
             sit debitis quaerat qui officiis explicabo. Ea dolores
@@ -115,14 +118,60 @@ export default class Journey extends React.Component {
             })} 
  
           </View>
+        
         </ScrollView>
+        : <ScrollView scrollEnabled={false}>
+        
+        
+          <Text style={styles._desc}>
+            Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
+            sit debitis quaerat qui officiis explicabo. Ea dolores
+            exercitationem. pin
+          </Text>
+          <Text style={styles._sesion_title}>Sessions</Text>
+
+          <View>
+            {sessions.map((val, i) => {
+              return (
+                <View key={i} style={styles._sescion}>
+                  <View style={styles._section_data}>
+                    <Image
+                      source={{ uri: val.img }}
+                      style={styles._sesion_image}
+                    />
+                    <View>
+                      <Text style={styles._sesion_title}>{val.title}</Text>
+                      <Text style={styles._sesion_day}>{val.day}</Text>
+                    </View>
+                  </View>
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.props.navigation.navigate("PlaySession")
+                    }
+                  >
+                    <MaterialIcons
+                      name="keyboard-arrow-right"
+                      size={24}
+                      color={theme.white}
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
+            })} 
+ 
+          </View>
+        
+        </ScrollView>}
+        
 {
   this.state.isSubscribed ?
               null
-              : <BlurView intensity={90} tint={"dark"} style={styles.upper_layer}>
+              : <BlurView intensity={70} tint={"dark"}>
+                 <View style={styles.upper_layer}>
                     <TouchableOpacity style={styles._btn} onPress={() => this.props.navigation.navigate("Trial")}>
                      <Text style={styles.box_text2}>Start Journey</Text>
                     </TouchableOpacity>
+                 </View> 
               </BlurView> 
 }
         
@@ -156,7 +205,7 @@ let styles = StyleSheet.create({
     alignItems: "center",
   },
   _thumbnail: {
-    height: 292,
+    height: 200,
     backgroundColor: theme.grey,
     borderRadius: 10,
     padding: 10,
@@ -211,8 +260,10 @@ let styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     flexDirection: "row",
-    paddingTop: Dimensions.get("window").height / 6,
-    bottom: 0,
+    paddingTop: 150,
+    bottom: 5,
+    paddingBottom:10,
+   // marginBottom:10,
    // position: 'absolute',
   //  width: Dimensions.get("window").width ,
   },
@@ -226,7 +277,7 @@ let styles = StyleSheet.create({
     padding: 10,
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 5,
+    marginBottom:30,
     borderRadius: 8,
   },
     box_text2: {

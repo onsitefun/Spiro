@@ -15,7 +15,7 @@ export default class Trial extends React.Component {
   }
   render(){
       return (
-       <SafeAreaView style={styles.container}
+      <SafeAreaView style={styles.container}
        height= {height}
        width={screen_width}>
 
@@ -105,6 +105,7 @@ let styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.black,
+    padding:5
   },
   content: {
     flex: 1,
@@ -126,7 +127,8 @@ let styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    flex: 1
+    flex: 1,
+    padding: 5
   },
   box_text1: {
     color: theme.black,

@@ -45,8 +45,7 @@ export default class Profile extends React.Component {
 
     return (
 
-       <SafeAreaView style={styles._container}
-       height= {height}>
+       <SafeAreaView style={styles._container}>
        <View style={styles._layer}>
        <DrawerNavigation style={styles.drawer}></DrawerNavigation>
        <Text style={styles.header_title}>Hi #first_name</Text>
@@ -99,16 +98,16 @@ export default class Profile extends React.Component {
     fromZero={true}
     position="center"
 
-    chartConfig={{
-      backgroundColor: "#000",
-      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    chartConfig={
+      {backgroundColor: "#777" ,
+      color: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
       labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       flex: 1,
       marginBottom: 20,
       alignItems: "center",
       justifyContent: "center",
       orientation: "center",
-    }}
+      }}
   />
 </View>
 
@@ -150,7 +149,8 @@ let styles = StyleSheet.create({
   },
   _layer: {
     padding: 2,
-    margin: 5,
+    flex:1,
+    //margin: 5,
   },
   header_title: {
     paddingTop: 10,
@@ -194,12 +194,12 @@ let styles = StyleSheet.create({
     marginBottom: 10,
   },
   infoBoxWrapper: {
+   // flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
     marginBottom: 15,
-    flex: 1,
   },
   infoBox: {
     alignItems: "center",
@@ -212,7 +212,7 @@ let styles = StyleSheet.create({
     marginTop:5,
   },
   graphBoxWrapper: {
-    flex: 1,
+  //  flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -222,6 +222,9 @@ let styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
+  graph_cog:{
+      
+    },
   menuWrapper: {
     marginTop: 20,
   },
