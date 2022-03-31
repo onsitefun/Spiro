@@ -5,6 +5,8 @@ import { useFonts } from "expo-font";
 import theme from "./theme";
 import Navigation from "../Spiro/src/navigation";
 import "react-native-gesture-handler";
+import * as Linking from "expo-linking";
+import * as WebBrowser from "expo-web-browser";
 
 export default function App(props) {
   let [fontsLoaded] = useFonts({

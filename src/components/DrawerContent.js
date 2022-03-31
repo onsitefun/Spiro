@@ -9,6 +9,8 @@ import theme from "../../theme";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import * as Linking from "expo-linking";
+import * as WebBrowser from "expo-web-browser";
 
 export default function CustomDrawerContent(props) {
   const navigation = useNavigation();
@@ -35,14 +37,14 @@ export default function CustomDrawerContent(props) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("TermsAndConditions")}>
+        <TouchableOpacity onPress={() => WebBrowser.openBrowserAsync("https://drive.google.com/file/d/1ezAcCvyfYCTfERR7ggGB5FCOs2Le--HJ/view")}>
           <View style={styles.menuItem}>
             <Icon name="file" color="#777" size={25}/>
             <Text style={styles.menuItemText}>Terms & Conditions</Text>
           </View>
         </TouchableOpacity>
 
-       <TouchableOpacity onPress={() => navigation.navigate("PrivacyPolicy")}>
+       <TouchableOpacity onPress={() => WebBrowser.openBrowserAsync("https://drive.google.com/file/d/1zj0ixtTh5Y-BsEB5MpKPQOEa7XKfsoh7/view")}>
           <View style={styles.menuItem}>
             <Icon name="shield-account" color="#777" size={25}/>
             <Text style={styles.menuItemText}>Privacy Policy</Text>

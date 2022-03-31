@@ -27,6 +27,9 @@ export default class About extends React.Component {
 </View>
           <View style={styles.container}>
           <View style={{marginTop:15,marginBottom: 10,}}>
+          <Text style={styles.text}>Spiro is a breathwork app for anyone to create healthy habits around physical and mental.
+          Spiro it's the product of a throughout research in the wellness and mental health space.
+          Spiro is produced by Alamas Labs, Inc.</Text>
           
 
 </View>

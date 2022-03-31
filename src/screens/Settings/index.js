@@ -9,13 +9,24 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default class Settings extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {};
-     switchValueNotifications: false;
-     switchValueMail: false;
-  }
   
+   constructor() {
+     super();
+     this.state = 
+     {
+        
+       // [isEnabled - setIsEnabled] : useState(true),
+      };
+      isEnabled : true;
+        setIsEnabled : true;
+  //   //  switchValueNotifications: false;
+  //   //  switchValueMail: false;
+   }
+  
+    toggleSwitch = () => {
+       this.props.setIsEnabled(isEnabled => !isEnabled)
+     }
+
   render(){
 
       return (
@@ -37,16 +48,21 @@ export default class Settings extends React.Component {
 
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Helpful Notifications</Text>
-             <Switch  value={this.state.switchValueNotifications}  
-                      onValueChange ={(switchValueNotifications)=>this.setState({switchValueNotifications})}></Switch>
+             <Switch
+             //trackColor={{false: 'gray', true: 'green'}}
+             onValueChange={this.props.toggleSwitch}
+             value={this.props.isEnabled}
+             ></Switch>
+             {/* <Switch  value={this.state.switchValueNotifications}  
+                      onValueChange ={(switchValueNotifications)=>this.setState({switchValueNotifications})}></Switch> */}
            </View>
            <Text style={styles.content_text} >Support, inspiration and reminders to keep your practice going.</Text>
 
 
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Mail Newsletter</Text>
-             <Switch value={this.state.switchValueMail}
-                     onValueChange ={(switchValueMail)=>this.setState({switchValueMail})}></Switch>
+             {/* <Switch value={this.state.switchValueMail}
+                     onValueChange ={(switchValueMail)=>this.setState({switchValueMail})}></Switch> */}
            </View>
            <Text style={styles.content_text} >Support, inspiration and news, just in your mail.</Text>
 

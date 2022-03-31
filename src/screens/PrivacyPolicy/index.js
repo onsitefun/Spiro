@@ -12,27 +12,9 @@ export default class PrivacyPolicy extends React.Component {
   }
   render(){
       return (
-       <SafeAreaView style={styles.container}>
-        <View style={styles._header}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <View style={styles._back_btn}>
-              <Ionicons
-                name="chevron-back-outline"
-                size={26}
-                color={theme.white}
-              />
-              <Text style={styles.text}>Privacy Policy</Text>
-            </View>
-          </TouchableOpacity>
-</View>
-          <View style={styles.container}>
-          <View style={{marginTop:15,marginBottom: 10,}}>
-          
-
-</View>
-
-        </View>
-      </SafeAreaView>
+        <SafeAreaView style={styles.container}>
+        
+       </SafeAreaView>
       );
   }
 }
@@ -64,3 +46,25 @@ let styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
+
+/* <SafeAreaView style={styles.container}>
+        <View style={styles._header}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <View style={styles._back_btn}>
+              <Ionicons
+                name="chevron-back-outline"
+                size={26}
+                color={theme.white}
+              />
+              <Text style={styles.text}>Privacy Policy</Text>
+            </View>
+          </TouchableOpacity>
+</View>
+          <View style={styles.container}>
+          <View style={{marginTop:15,marginBottom: 10,}}>
+          <Link to={"https://drive.google.com/file/d/1zj0ixtTh5Y-BsEB5MpKPQOEa7XKfsoh7/view"}></Link>
+
+</View>
+
+        </View>
+      </SafeAreaView> */
