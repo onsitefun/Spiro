@@ -15,6 +15,7 @@ import Register from "./Register";
 import LoginOptions from "./LoginOptions";
 import OnBoarding from "./OnBoarding";
 import Survey from "./Survey";
+import ForgotPassword from "./ForgotPassword";
 
 export {
   EnterPin,
@@ -34,4 +35,5 @@ export {
   LoginOptions,
   OnBoarding,
   Survey,
+  ForgotPassword,
 };

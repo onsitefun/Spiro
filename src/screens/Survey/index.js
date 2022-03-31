@@ -113,7 +113,7 @@ const Survey = ({ navigation }) => {
               <View style={{ width: 15 }} /> */}
               <TouchableOpacity
                 style={styles._btn}
-                onPress={navigation.replace("GettingStart")}
+                onPress={() => navigation.replace("GettingStart")}
               >
                 <Text style={styles._btn_text}>Done!</Text>
               </TouchableOpacity>
