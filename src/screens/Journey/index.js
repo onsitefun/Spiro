@@ -269,7 +269,7 @@ let styles = StyleSheet.create({
   },
     _btn: {
     flex: 1,
-    backgroundColor: "#c9dc87",
+    backgroundColor: theme.appGreen,
   //  flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

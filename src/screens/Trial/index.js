@@ -44,7 +44,7 @@ export default class Trial extends React.Component {
               <Text style={styles.menuItemText}>Progress Tracking</Text>
             </View>
             <View style={styles.menuItemChecks}>
-              <Icon name="check" color="#c9dc87" size={25}/>
+              <Icon name="check" color={theme.appGreen} size={25}/>
               <Text style={styles.menuItemText}>Unlock top breathwork facilitators</Text>
             </View>
 
@@ -203,7 +203,7 @@ let styles = StyleSheet.create({
    // flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#c9dc87",
+    backgroundColor: theme.appGreen,
   },
    _box_monthly: {
      flex:1,
@@ -219,7 +219,7 @@ let styles = StyleSheet.create({
   },
   _btn: {
     flex: 1,
-    backgroundColor: "#c9dc87",
+    backgroundColor: theme.appGreen,
     justifyContent: "center",
     alignItems: "center",
     height: 50,

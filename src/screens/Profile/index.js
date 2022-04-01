@@ -98,7 +98,7 @@ export default class Profile extends React.Component {
     position="center"
 
     chartConfig={
-      {backgroundColor: "#777" ,
+      {backgroundColor: theme.lightGrey ,
       color: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
       labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       flex: 1,
@@ -113,21 +113,21 @@ export default class Profile extends React.Component {
       <View style={styles.menuWrapper}>
         <TouchableRipple onPress={() => this.props.navigation.navigate("Downloads")}>
           <View style={styles.menuItem}>
-            <Icon name="download" color="#777" size={25}/>
+            <Icon name="download" color={theme.lightGrey} size={25}/>
             <Text style={styles.menuItemText}>Downloads</Text>
           </View>
         </TouchableRipple>
         
         <TouchableRipple onPress={() => this.props.navigation.navigate("SessionsHistory")}>
           <View style={styles.menuItem}>
-            <Icon name="history" color="#777" size={25}/>
+            <Icon name="history" color={theme.lightGrey} size={25}/>
             <Text style={styles.menuItemText}>Sessions History</Text>
           </View>
         </TouchableRipple>
 
         <TouchableRipple onPress={() => this.props.navigation.navigate("MinutesByTag")}>
           <View style={styles.menuItem}>
-            <Icon name="chart-bar" color="#777" size={25}/>
+            <Icon name="chart-bar" color={theme.lightGrey} size={25}/>
             <Text style={styles.menuItemText}>Minutes by tag</Text>
           </View>
         </TouchableRipple>

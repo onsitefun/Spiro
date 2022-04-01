@@ -4,36 +4,30 @@ import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text,Switch } from 're
 
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
-//import Switch from "../../components/Switch";
 
+function Settings({ navigation }) {
 
-export default class Settings extends React.Component {
+  const[notificationsIsEnabled, setNotificationsIsEnabled] = useState(false);
+  const[mailNewsletterIsEnabled, setMailNewsletterIsEnabled] = useState(false);
 
-  
-   constructor() {
-     super();
-     this.state = 
-     {
-        
-       // [isEnabled - setIsEnabled] : useState(true),
-      };
-      isEnabled : true;
-        setIsEnabled : true;
-  //   //  switchValueNotifications: false;
-  //   //  switchValueMail: false;
-   }
-  
-    toggleSwitch = () => {
-       this.props.setIsEnabled(isEnabled => !isEnabled)
-     }
+  const toggleSwitchNotifications = () => {
+      // setNotificationsIsEnabled(!notificationsIsEnabled);
+      setNotificationsIsEnabled(prev => !prev);
+   };
+   const toggleSwitchMailNewsletter = () => {
+       //setMailNewsletterIsEnabled(!mailNewsletterIsEnabled);
+       setMailNewsletterIsEnabled(prev => !prev);
+   };
 
-  render(){
+   const pressHandler = () => {
+       navigation.navigate('Profile')
+   };
 
       return (
         
        <SafeAreaView style={styles.container}>
         <View style={styles._header}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+          <TouchableOpacity onPress={pressHandler}>
             <View style={styles._back_btn}>
               <Ionicons
                 name="chevron-back-outline"
@@ -49,28 +43,35 @@ export default class Settings extends React.Component {
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Helpful Notifications</Text>
              <Switch
-             //trackColor={{false: 'gray', true: 'green'}}
-             onValueChange={this.props.toggleSwitch}
-             value={this.props.isEnabled}
+             trackColor={{false: theme.lightGrey, true: theme.appGreen}}
+             thumbColor={theme.white}
+             ios_backgroundColor={theme.lightGrey}
+             onValueChange={toggleSwitchNotifications}
+             value={notificationsIsEnabled}
              ></Switch>
-             {/* <Switch  value={this.state.switchValueNotifications}  
-                      onValueChange ={(switchValueNotifications)=>this.setState({switchValueNotifications})}></Switch> */}
            </View>
            <Text style={styles.content_text} >Support, inspiration and reminders to keep your practice going.</Text>
 
 
            <View style={styles.content_container}>
              <Text style={styles.content_subtitle}>Mail Newsletter</Text>
-             {/* <Switch value={this.state.switchValueMail}
-                     onValueChange ={(switchValueMail)=>this.setState({switchValueMail})}></Switch> */}
+             <Switch
+             trackColor={{false: theme.lightGrey, true: theme.appGreen}}
+             thumbColor={theme.white}
+             ios_backgroundColor={theme.lightGrey}
+             onValueChange={toggleSwitchMailNewsletter}
+             value={mailNewsletterIsEnabled}
+             ></Switch>
            </View>
            <Text style={styles.content_text} >Support, inspiration and news, just in your mail.</Text>
 
           </View>
       </SafeAreaView>
       );
-  }
+
 }
+
+export default Settings;
 
 let styles = StyleSheet.create({
   container: {
@@ -106,7 +107,7 @@ let styles = StyleSheet.create({
     lineHeight: 26,
   },
   content_text: {
-    color: '#777',
+    color: theme.lightGrey,
     marginLeft: 35,
     fontWeight: "600",
     fontSize: 14,
@@ -120,3 +121,16 @@ let styles = StyleSheet.create({
   },
 });
 
+// export default class Settings extends React.Component {
+
+//    constructor(props) {
+//      super(props);
+//      this.state = 
+//      {
+//         isEnabled : true,
+//       };
+//    }
+  
+//    toggleSwitch = () => {
+//        this.state({ isEnabled : !this.state.isEnabled });
+//    }

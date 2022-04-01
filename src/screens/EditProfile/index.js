@@ -6,8 +6,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default class EditProfile extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       first_name: "First Name",
       last_name: "Last Name",
@@ -29,7 +29,11 @@ export default class EditProfile extends React.Component {
             ]  
         );  
     };  
-
+  changeName = () => {
+    var first = this.state.first_name;
+    var last = this.state.last_name;
+  //  console.log('changeName');
+  };
   render(){
     let { first_name } = this.state;
     let { last_name } = this.state;
@@ -57,23 +61,27 @@ export default class EditProfile extends React.Component {
           <Text style={styles._title} >First Name</Text>
           <TextInput
             placeholder="First Name"
-            placeholderTextColor={theme.grey}
+            placeholderTextColor={theme.lightGrey}
             style={styles._input}
             value={first_name}
-            onChangeText={(first) => this.setState({ first_name: first })}
+           // onChangeText={(first) => this.setState({ first_name: first })}
+            onChangeText={(firstName) => this.setState({ first_name: firstName })}
           />
           {/*   ------LAST NAME------  */}
           <Text style={styles._title} >Last Name</Text>
           <TextInput
             placeholder="Last Name"
-            placeholderTextColor={theme.grey}
+            placeholderTextColor={theme.lightGrey}
             style={styles._input}
             value={last_name}
-            onChangeText={(last) => this.setState({ last_name: last })}
+           // onChangeText={(last) => this.setState({ last_name: last })}
+           onChangeText={(lastName) => this.setState({ last_name: lastName })}
           />
           {/*   ------SAVE button------  */}
-          <TouchableOpacity style={styles._btn} onPress={() => {}}>
+          <TouchableOpacity style={styles._btn} onPress={() => {this.changeName()}}>
+            {/* <Text style={styles._btn_text} onPress={this.changeName}>Save</Text> */}
             <Text style={styles._btn_text}>Save</Text>
+            
           </TouchableOpacity>
 
           {/*   ------DELETE button------  */}
