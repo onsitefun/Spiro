@@ -7,7 +7,7 @@ import {
   Image,
   ImageBackground,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from "react-native";
  import { BlurView } from 'expo-blur';
 import theme from "../../../theme";
@@ -166,13 +166,15 @@ export default class Journey extends React.Component {
 {
   this.state.isSubscribed ?
               null
-              : <BlurView intensity={70} tint={"dark"}>
-                 <View style={styles.upper_layer}>
+              : //<BlurView intensity={70} tint={"dark"}>
+                <View style={styles._inner_layer}>
+                    <View style={styles.upper_layer} />
                     <TouchableOpacity style={styles._btn} onPress={() => this.props.navigation.navigate("Trial")}>
                      <Text style={styles.box_text2}>Start Journey</Text>
                     </TouchableOpacity>
-                 </View> 
-              </BlurView> 
+                </View>
+          
+             // </BlurView> 
 }
         
       </View>
@@ -257,18 +259,23 @@ let styles = StyleSheet.create({
     paddingVertical: 10,
   },
   upper_layer: {
-    flex: 1,
+  //  flex: 1,
     alignItems: "center",
     flexDirection: "row",
-    paddingTop: 150,
-    bottom: 5,
+    //paddingTop: 150,
+   // bottom: 5,
+    //height: 150,
     paddingBottom:10,
-   // marginBottom:10,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+   // marginBottom:100,
    // position: 'absolute',
   //  width: Dimensions.get("window").width ,
   },
+  _inner_layer: {
+    flex: 2,
+  },
     _btn: {
-    flex: 1,
+   // flex: 1,
     backgroundColor: theme.appGreen,
   //  flexDirection: "row",
     justifyContent: "center",

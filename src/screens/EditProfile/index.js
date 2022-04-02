@@ -9,8 +9,8 @@ export default class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: "First Name",
-      last_name: "Last Name",
+      first_name: "",
+      last_name: "",
     };
   }
 
@@ -29,9 +29,11 @@ export default class EditProfile extends React.Component {
             ]  
         );  
     };  
-  changeName = () => {
-    var first = this.state.first_name;
-    var last = this.state.last_name;
+  changeName = (firstName, lastName) => {
+    // var first = this.state.first_name;
+    // var last = this.state.last_name;
+    this.setState({ first_name: firstName});
+    this.setState({ last_name: lastName });
   //  console.log('changeName');
   };
   render(){
@@ -78,7 +80,7 @@ export default class EditProfile extends React.Component {
            onChangeText={(lastName) => this.setState({ last_name: lastName })}
           />
           {/*   ------SAVE button------  */}
-          <TouchableOpacity style={styles._btn} onPress={() => {this.changeName()}}>
+          <TouchableOpacity style={styles._btn} onPress={() => {this.changeName(first_name, last_name)}}>
             {/* <Text style={styles._btn_text} onPress={this.changeName}>Save</Text> */}
             <Text style={styles._btn_text}>Save</Text>
             

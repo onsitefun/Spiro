@@ -7,16 +7,18 @@ import { Ionicons } from "@expo/vector-icons";
 
 function Settings({ navigation }) {
 
-  const[notificationsIsEnabled, setNotificationsIsEnabled] = useState(false);
-  const[mailNewsletterIsEnabled, setMailNewsletterIsEnabled] = useState(false);
+  const[notificationsIsEnabled, setNotificationsIsEnabled] = useState(Boolean);
+  const[mailNewsletterIsEnabled, setMailNewsletterIsEnabled] = useState(Boolean);
 
   const toggleSwitchNotifications = () => {
       // setNotificationsIsEnabled(!notificationsIsEnabled);
-      setNotificationsIsEnabled(prev => !prev);
+      setNotificationsIsEnabled(previousState => !previousState);
+   //   notificationsIsEnabled(!previousState);
    };
    const toggleSwitchMailNewsletter = () => {
        //setMailNewsletterIsEnabled(!mailNewsletterIsEnabled);
-       setMailNewsletterIsEnabled(prev => !prev);
+       setMailNewsletterIsEnabled(previousState => !previousState);
+      // mailNewsletterIsEnabled(!previousState);
    };
 
    const pressHandler = () => {

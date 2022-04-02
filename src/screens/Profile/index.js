@@ -103,9 +103,7 @@ export default class Profile extends React.Component {
       labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       flex: 1,
       marginBottom: 20,
-      alignItems: "center",
-      justifyContent: "center",
-      orientation: "center",
+      alignSelf: "center",
       }}
   />
 </View>
@@ -211,7 +209,7 @@ let styles = StyleSheet.create({
     marginTop:5,
   },
   graphBoxWrapper: {
- //   flex: 1,
+   // flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
