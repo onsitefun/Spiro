@@ -63,12 +63,11 @@ export default class Settings extends React.Component {
   }
 
   render(){
-
-      return (
+    return (
         
        <SafeAreaView style={styles.container}>
         <View style={styles._header}>
-          <TouchableOpacity onPress={pressHandler}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <View style={styles._back_btn}>
               <Ionicons
                 name="chevron-back-outline"
@@ -115,8 +114,8 @@ export default class Settings extends React.Component {
           </View>
       </SafeAreaView>
     );
-            }
-          }
+  }
+}
 
 let styles = StyleSheet.create({
   container: {
@@ -165,37 +164,3 @@ let styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
-
-// export default class Settings extends React.Component {
-
-//    constructor(props) {
-//      super(props);
-//      this.state = 
-//      {
-//         isEnabled : true,
-//       };
-//    }
-  
-//    toggleSwitch = () => {
-//        this.state({ isEnabled : !this.state.isEnabled });
-//    }
-//function Settings({ navigation }, props){
-
-
-  // const[notificationsIsEnabled, setNotificationsIsEnabled] = useState(boolean);
-  // const[mailNewsletterIsEnabled, setMailNewsletterIsEnabled] = useState(boolean);
-
-  // const toggleSwitchNotifications = () => {
-  //     // setNotificationsIsEnabled(!notificationsIsEnabled);
-  //     setNotificationsIsEnabled(previousState => !previousState);
-  //  //   notificationsIsEnabled(!previousState);
-  //  };
-  //  const toggleSwitchMailNewsletter = () => {
-  //      //setMailNewsletterIsEnabled(!mailNewsletterIsEnabled);
-  //      setMailNewsletterIsEnabled(previousState => !previousState);
-  //     // mailNewsletterIsEnabled(!previousState);
-  //  };
-
-  //  const pressHandler = () => {
-  //      navigation.navigate('Profile')
-  //  };
