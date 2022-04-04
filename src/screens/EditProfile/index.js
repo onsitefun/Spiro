@@ -3,14 +3,17 @@ import { Alert, SafeAreaView, View, StyleSheet, TouchableOpacity,Text,TextInput 
 
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-community/async-storage';
 
+const First_Name_Key = 'firstName';
+const Last_Name_Key = 'lastName';
 export default class EditProfile extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      first_name: "",
-      last_name: "",
+      first_name: "John",
+      last_name: "Doe",
     };
   }
 
@@ -29,16 +32,56 @@ export default class EditProfile extends React.Component {
             ]  
         );  
     };  
-  changeName = (firstName, lastName) => {
-    // var first = this.state.first_name;
-    // var last = this.state.last_name;
-    this.setState({ first_name: firstName});
-    this.setState({ last_name: lastName });
-  //  console.log('changeName');
-  };
+  // changeName = (firstName, lastName) => {
+  //   // var first = this.state.first_name;
+  //   // var last = this.state.last_name;
+  //   this.setState({ first_name: firstName});
+  //   this.setState({ last_name: lastName });
+  // //  console.log('changeName');
+  // };
+
+  componentDidMount() {
+    this.loadAsyncData();
+  }
+
+  loadAsyncData = async () => {
+    try {
+      const first_name = await AsyncStorage.getItem(First_Name_Key)
+      if (first_name !== null) {
+        this.setState({ first_name: JSON.parse(first_name) });
+      }
+    } catch (e) {
+      console.log(e)
+    }
+
+    try {
+      const last_name = await AsyncStorage.getItem(Last_Name_Key)
+      if (last_name !== null) {
+        this.setState({ last_name: JSON.parse(last_name) });
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  storeFirstName = async (key, first_name) => {
+    try {
+      await AsyncStorage.setItem(First_Name_Key, JSON.stringify(first_name));
+      this.setState({ first_name });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  storeLastName = async (key, last_name) => {
+    try {
+      await AsyncStorage.setItem(Last_Name_Key, JSON.stringify(last_name));
+      this.setState({ last_name });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   render(){
-    let { first_name } = this.state;
-    let { last_name } = this.state;
 
       return (
        <SafeAreaView style={styles._container}>
@@ -57,17 +100,16 @@ export default class EditProfile extends React.Component {
           <View style={styles._inner_layer}>
           <View style={{marginTop:15,marginBottom: 10,}}>
           
-
-
           {/*   ------FIRST NAME------  */}
           <Text style={styles._title} >First Name</Text>
           <TextInput
             placeholder="First Name"
             placeholderTextColor={theme.lightGrey}
             style={styles._input}
-            value={first_name}
-           // onChangeText={(first) => this.setState({ first_name: first })}
-            onChangeText={(firstName) => this.setState({ first_name: firstName })}
+            value={this.state.first_name}
+            onChangeText={(first_Name) => {this.storeFirstName(First_Name_Key, first_Name);
+            console.log(first_Name)
+            }}
           />
           {/*   ------LAST NAME------  */}
           <Text style={styles._title} >Last Name</Text>
@@ -75,15 +117,14 @@ export default class EditProfile extends React.Component {
             placeholder="Last Name"
             placeholderTextColor={theme.lightGrey}
             style={styles._input}
-            value={last_name}
-           // onChangeText={(last) => this.setState({ last_name: last })}
-           onChangeText={(lastName) => this.setState({ last_name: lastName })}
+            value={this.state.last_name}
+            onChangeText={(last_name) => {this.storeLastName(Last_Name_Key, last_name);
+            console.log(last_name)
+            }}
           />
           {/*   ------SAVE button------  */}
-          <TouchableOpacity style={styles._btn} onPress={() => {this.changeName(first_name, last_name)}}>
-            {/* <Text style={styles._btn_text} onPress={this.changeName}>Save</Text> */}
+          <TouchableOpacity style={styles._btn} onPress={() => {}}>
             <Text style={styles._btn_text}>Save</Text>
-            
           </TouchableOpacity>
 
           {/*   ------DELETE button------  */}

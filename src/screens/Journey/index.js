@@ -121,8 +121,7 @@ export default class Journey extends React.Component {
         
         </ScrollView>
         : <ScrollView scrollEnabled={false}>
-        
-        
+
           <Text style={styles._desc}>
             Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
             sit debitis quaerat qui officiis explicabo. Ea dolores
@@ -134,7 +133,9 @@ export default class Journey extends React.Component {
             {sessions.map((val, i) => {
               return (
                 <View key={i} style={styles._sescion}>
+                
                   <View style={styles._section_data}>
+                  
                     <Image
                       source={{ uri: val.img }}
                       style={styles._sesion_image}
@@ -155,28 +156,30 @@ export default class Journey extends React.Component {
                       color={theme.white}
                     />
                   </TouchableOpacity>
+                 
                 </View>
               );
             })} 
- 
+
           </View>
-        
-        </ScrollView>}
-        
-{
-  this.state.isSubscribed ?
+           
+         {
+             this.state.isSubscribed ?
               null
               : //<BlurView intensity={70} tint={"dark"}>
                 <View style={styles._inner_layer}>
-                    <View style={styles.upper_layer} />
-                    <TouchableOpacity style={styles._btn} onPress={() => this.props.navigation.navigate("Trial")}>
-                     <Text style={styles.box_text2}>Start Journey</Text>
-                    </TouchableOpacity>
+                    {/* <View style={styles.upper_layer} /> */}
+                      <TouchableOpacity style={styles._btn} onPress={() => this.props.navigation.navigate("Trial")}>
+                       <Text style={styles.box_text2}>Start Journey</Text>
+                      </TouchableOpacity>
+                    
                 </View>
           
              // </BlurView> 
-}
+            }
         
+        </ScrollView>}
+          
       </View>
     );
     
@@ -260,25 +263,31 @@ let styles = StyleSheet.create({
   },
   upper_layer: {
   //  flex: 1,
+    justifyContent: "flex-start",
     alignItems: "center",
-    flexDirection: "row",
+    height: 50,
+   // flexDirection: "row",
     //paddingTop: 150,
    // bottom: 5,
-    //height: 150,
-    paddingBottom:10,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+   // paddingBottom:10,
+  //  backgroundColor: 'rgba(0,0,0,0.2)',
    // marginBottom:100,
    // position: 'absolute',
   //  width: Dimensions.get("window").width ,
   },
   _inner_layer: {
-    flex: 2,
+    flex: 1,
+    flexDirection: "column",
+     //height: 500,
+   // width: Dimensions.get("window").width,
+   // alignItems: "flex-end",
   },
     _btn: {
-   // flex: 1,
+    flex: 1,
     backgroundColor: theme.appGreen,
   //  flexDirection: "row",
-    justifyContent: "center",
+    //justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
     height: 50,
     padding: 10,

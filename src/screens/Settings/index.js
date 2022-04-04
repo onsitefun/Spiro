@@ -1,29 +1,68 @@
 // Dependencies
-import React, {useState} from 'react';
+import React from 'react';
 import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text,Switch } from 'react-native';
 
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-community/async-storage';
 
-function Settings({ navigation }) {
+const SHOW_NOTIFICATIONS_KEY = 'notifications';
+const SHOW_Email_NOTIFICATIONS_KEY = 'emailNotifications';
 
-  const[notificationsIsEnabled, setNotificationsIsEnabled] = useState(Boolean);
-  const[mailNewsletterIsEnabled, setMailNewsletterIsEnabled] = useState(Boolean);
+export default class Settings extends React.Component {
 
-  const toggleSwitchNotifications = () => {
-      // setNotificationsIsEnabled(!notificationsIsEnabled);
-      setNotificationsIsEnabled(previousState => !previousState);
-   //   notificationsIsEnabled(!previousState);
-   };
-   const toggleSwitchMailNewsletter = () => {
-       //setMailNewsletterIsEnabled(!mailNewsletterIsEnabled);
-       setMailNewsletterIsEnabled(previousState => !previousState);
-      // mailNewsletterIsEnabled(!previousState);
-   };
+  constructor() {
+    super();
+    this.state = {
+      showNotifications: false,
+      showEmailNotifications: false,
+    };
+  }
 
-   const pressHandler = () => {
-       navigation.navigate('Profile')
-   };
+  componentDidMount() {
+    this.loadAsyncData();
+  }
+
+  loadAsyncData = async () => {
+    try {
+      const showNotifications = await AsyncStorage.getItem(SHOW_NOTIFICATIONS_KEY)
+      if (showNotifications !== null) {
+        this.setState({ showNotifications: JSON.parse(showNotifications) });
+      }
+    } catch (e) {
+      console.log(e)
+    }
+
+    try {
+      const showEmailNotifications = await AsyncStorage.getItem(SHOW_Email_NOTIFICATIONS_KEY)
+      if (showEmailNotifications !== null) {
+        this.setState({ showEmailNotifications: JSON.parse(showEmailNotifications) });
+      }
+    } catch (e) {
+      console.log(e)
+    }
+    
+  }
+
+  storeNotification = async (key, showNotifications) => {
+    try {
+      await AsyncStorage.setItem(SHOW_NOTIFICATIONS_KEY, JSON.stringify(showNotifications));
+      this.setState({ showNotifications });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  storeEmailNotification = async (key, showEmailNotifications) => {
+    try {
+      await AsyncStorage.setItem(SHOW_Email_NOTIFICATIONS_KEY, JSON.stringify(showEmailNotifications));
+      this.setState({ showEmailNotifications });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  render(){
 
       return (
         
@@ -48,8 +87,11 @@ function Settings({ navigation }) {
              trackColor={{false: theme.lightGrey, true: theme.appGreen}}
              thumbColor={theme.white}
              ios_backgroundColor={theme.lightGrey}
-             onValueChange={toggleSwitchNotifications}
-             value={notificationsIsEnabled}
+             onValueChange={(showNotifications) => {
+                this.storeNotification(SHOW_NOTIFICATIONS_KEY, showNotifications);
+                console.log(showNotifications)
+              }}
+             value={this.state.showNotifications}
              ></Switch>
            </View>
            <Text style={styles.content_text} >Support, inspiration and reminders to keep your practice going.</Text>
@@ -61,19 +103,20 @@ function Settings({ navigation }) {
              trackColor={{false: theme.lightGrey, true: theme.appGreen}}
              thumbColor={theme.white}
              ios_backgroundColor={theme.lightGrey}
-             onValueChange={toggleSwitchMailNewsletter}
-             value={mailNewsletterIsEnabled}
+             onValueChange={(showEmailNotifications) => {
+                this.storeEmailNotification(SHOW_Email_NOTIFICATIONS_KEY, showEmailNotifications);
+                console.log(showEmailNotifications)
+              }}
+             value={this.state.showEmailNotifications}
              ></Switch>
            </View>
            <Text style={styles.content_text} >Support, inspiration and news, just in your mail.</Text>
 
           </View>
       </SafeAreaView>
-      );
-
-}
-
-export default Settings;
+    );
+            }
+          }
 
 let styles = StyleSheet.create({
   container: {
@@ -136,3 +179,23 @@ let styles = StyleSheet.create({
 //    toggleSwitch = () => {
 //        this.state({ isEnabled : !this.state.isEnabled });
 //    }
+//function Settings({ navigation }, props){
+
+
+  // const[notificationsIsEnabled, setNotificationsIsEnabled] = useState(boolean);
+  // const[mailNewsletterIsEnabled, setMailNewsletterIsEnabled] = useState(boolean);
+
+  // const toggleSwitchNotifications = () => {
+  //     // setNotificationsIsEnabled(!notificationsIsEnabled);
+  //     setNotificationsIsEnabled(previousState => !previousState);
+  //  //   notificationsIsEnabled(!previousState);
+  //  };
+  //  const toggleSwitchMailNewsletter = () => {
+  //      //setMailNewsletterIsEnabled(!mailNewsletterIsEnabled);
+  //      setMailNewsletterIsEnabled(previousState => !previousState);
+  //     // mailNewsletterIsEnabled(!previousState);
+  //  };
+
+  //  const pressHandler = () => {
+  //      navigation.navigate('Profile')
+  //  };

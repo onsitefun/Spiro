@@ -8,7 +8,8 @@ import "react-native-gesture-handler";
 import * as Linking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
 
-export default function App(props) {
+
+export default function App() {
   let [fontsLoaded] = useFonts({
     TajawalBlack: require("../Spiro/assets/Fonts/Tajawal-Black.ttf"),
     TajawalBold: require("../Spiro/assets/Fonts/Tajawal-Bold.ttf"),
@@ -24,5 +25,7 @@ export default function App(props) {
   } else {
     return <Navigation />;
   }
+  
 }
+
 const styles = StyleSheet.create({});
