@@ -33,13 +33,40 @@ const data = {
   ]
 };
 */
-
+const First_Name_Key = 'firstName';
 export default class Profile extends React.Component {
    
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      first_name: "John",
+    };
   }
+
+  componentDidMount() {
+    this.loadAsyncData();
+  }
+
+  loadAsyncData = async () => {
+    try {
+      const first_name = await AsyncStorage.getItem(First_Name_Key)
+      if (first_name !== null) {
+        this.setState({ first_name: JSON.parse(first_name) });
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  storeFirstName = async (key, first_name) => {
+    try {
+      await AsyncStorage.setItem(First_Name_Key, JSON.stringify(first_name));
+      this.setState({ first_name });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   render() {
 
     return (
@@ -47,7 +74,7 @@ export default class Profile extends React.Component {
        <SafeAreaView style={styles._container}>
        <View style={styles._layer}>
        <DrawerNavigation style={styles.drawer}></DrawerNavigation>
-       <Text style={styles.header_title}>Hi #first_name</Text>
+       <Text style={styles.header_title}>Hi {this.state.first_name}</Text>
        
       
       
@@ -104,6 +131,7 @@ export default class Profile extends React.Component {
       flex: 1,
       marginBottom: 20,
       alignSelf: "center",
+      
       }}
   />
 </View>
@@ -145,7 +173,7 @@ let styles = StyleSheet.create({
     backgroundColor: theme.black,
   },
   _layer: {
-    padding: 2,
+    padding: 3,
     flex:1,
     //margin: 5,
   },
@@ -158,9 +186,10 @@ let styles = StyleSheet.create({
     marginBottom: 17,
   },
   drawer: {
-    //flex: 1,
-    alignSelf: "flex-end",
-    alignItems: "flex-end",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
   },
   title: {
     color: theme.white,
@@ -212,7 +241,7 @@ let styles = StyleSheet.create({
    // flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignSelf: "center",
     marginBottom: 20,
     width: Dimensions.get("window").width ,

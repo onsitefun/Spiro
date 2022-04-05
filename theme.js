@@ -12,6 +12,7 @@ export default {
   grey: "#1F1F1F",
   greyLight: "#0000004F",
   lightGrey: "#777",
+  lighterGrey: "#999",
   btnBg: "#0000004E",
   black: "#000000",
   white: "#FFFFFF",

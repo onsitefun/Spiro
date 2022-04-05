@@ -19,6 +19,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 //     if(isSubscribed) return true;
 //     else return false;
 //   }
+const isSubscribed_KEY = 'isSubscribed';
 export default class Journey extends React.Component {
   
   constructor() {
@@ -26,6 +27,30 @@ export default class Journey extends React.Component {
     this.state = {
       isSubscribed: false,
    };
+  }
+
+  componentDidMount() {
+    this.loadAsyncData();
+  }
+
+  loadAsyncData = async () => {
+    try {
+      const isSubscribed = await AsyncStorage.getItem(isSubscribed_KEY)
+      if (isSubscribed !== null) {
+        this.setState({ isSubscribed: JSON.parse(isSubscribed) });
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  storeNotification = async (key, isSubscribed) => {
+    try {
+      await AsyncStorage.setItem(isSubscribed_KEY, JSON.stringify(isSubscribed));
+      this.setState({ isSubscribed });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
@@ -120,7 +145,7 @@ export default class Journey extends React.Component {
           </View>
         
         </ScrollView>
-        : <ScrollView scrollEnabled={false}>
+        : <ScrollView >
 
           <Text style={styles._desc}>
             Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
@@ -138,22 +163,20 @@ export default class Journey extends React.Component {
                   
                     <Image
                       source={{ uri: val.img }}
-                      style={styles._sesion_image}
+                      style={styles._sesion_image_unsubscribed}
                     />
                     <View>
-                      <Text style={styles._sesion_title}>{val.title}</Text>
-                      <Text style={styles._sesion_day}>{val.day}</Text>
+                      <Text style={styles._sesion_title_unsubscribed}>{val.title}</Text>
+                      <Text style={styles._sesion_day_unsubscribed}>{val.day}</Text>
                     </View>
                   </View>
                   <TouchableOpacity
-                    onPress={() =>
-                      this.props.navigation.navigate("PlaySession")
-                    }
+                   // onPress={() =>}
                   >
                     <MaterialIcons
                       name="keyboard-arrow-right"
                       size={24}
-                      color={theme.white}
+                      color={theme.lighterGrey}
                     />
                   </TouchableOpacity>
                  
@@ -248,6 +271,22 @@ let styles = StyleSheet.create({
     borderRadius: 100,
     marginRight: 10,
   },
+  _sesion_title_unsubscribed: {
+    color: theme.lighterGrey,
+    fontFamily: theme.TajawalBold,
+    fontSize: 22,
+  },
+  _sesion_day_unsubscribed: {
+    color: theme.lighterGrey,
+    fontFamily: theme.TajawalBold,
+  },
+  _sesion_image_unsubscribed: {
+    height: 67,
+    width: 67,
+    borderRadius: 100,
+    marginRight: 10,
+    opacity: 0.4,
+  },
   _section_data: {
     flexDirection: "row",
     flex: 1,
@@ -277,7 +316,7 @@ let styles = StyleSheet.create({
   },
   _inner_layer: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: "row",
      //height: 500,
    // width: Dimensions.get("window").width,
    // alignItems: "flex-end",
@@ -287,13 +326,13 @@ let styles = StyleSheet.create({
     backgroundColor: theme.appGreen,
   //  flexDirection: "row",
     //justifyContent: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "center",
     height: 50,
     padding: 10,
     marginLeft: 20,
     marginRight: 20,
-    marginBottom:30,
+    marginBottom:10,
     borderRadius: 8,
   },
     box_text2: {
