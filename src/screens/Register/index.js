@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "./../../../theme";
+import { auth } from "../../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default class Register extends React.Component {
   constructor() {
@@ -29,7 +31,16 @@ export default class Register extends React.Component {
     if (pin === "") {
       this.setState({ err: "Wrong Pin" });
     } else {
-      this.props.navigation.navigate("Home");
+      createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user.email)
+        this.props.navigation.navigate("Home");
+      })
+      .catch( error => {
+        alert(error);
+      })
+      
     }
   };
   resendPin = () => {

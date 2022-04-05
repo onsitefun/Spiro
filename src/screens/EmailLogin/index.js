@@ -10,6 +10,9 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../../theme";
+import { auth } from "../../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 export default class Login extends React.Component {
   constructor() {
@@ -26,7 +29,15 @@ export default class Login extends React.Component {
     if (pin === "") {
       this.setState({ err: "Wrong Pin" });
     } else {
-      this.props.navigation.navigate("Home");
+      signInWithEmailAndPassword(auth,this.state.email,this.state.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        this.props.navigation.navigate("Home");
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      
     }
   };
   resendPin = () => {
