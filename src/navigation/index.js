@@ -24,6 +24,8 @@ import {
   Login,
   Register,
   OnBoarding,
+  Survey,
+  ForgotPassword,
 } from "./../screens";
 import theme from "../../theme";
 import DrawerContent from "./../components/DrawerContent";
@@ -87,7 +89,9 @@ function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
+        <Stack.Screen name="Survey" component={Survey} />
         <Stack.Screen name="GettingStart" component={GettingStart} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="Home" component={DrawerNavigator} />
         <Stack.Screen name="EnterPin" component={EnterPin} />
         <Stack.Screen name="Journey" component={Journey} />

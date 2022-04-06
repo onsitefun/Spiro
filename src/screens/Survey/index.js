@@ -14,43 +14,32 @@ import theme from "./../../../theme";
 const { width, height } = Dimensions.get("window");
 const slides = [
   {
-    id: "11",
+    id: "44",
     image: require("./../../../assets/onboardingplaceholder.png"),
-    title: "Explore Sessions",
-    subtitle:
-      "Explore quick sessions to energize and fly high or calm and wind down.",
+    title: "How can Spiro help you?",
+    subtitle: "This will help us suggest best practice for you.",
   },
   {
-    id: "22",
+    id: "55",
     image: require("./../../../assets/onboardingplaceholder.png"),
-    title: "Dive Deep",
+    title: "When do you go to bed?",
     subtitle:
-      "Deep into the ins and outs with guided breathwork from top-notch facilitators.",
+      "Spiro can help you unwind and find calm for a full night's sleep.",
   },
   {
-    id: "33",
+    id: "66",
     image: require("./../../../assets/onboardingplaceholder.png"),
-    title: "Spiro with us",
-    subtitle: "Journeys Inspired by soundscapes and music bites.",
+    title: "What time do you get up?",
+    subtitle: "Spiro can help you feel awake, alert and energized.",
   },
 ];
-const Slide = ({ item }) => {
-  return (
-    <View style={{ alignItems: "center", width: width }}>
-      <Image
-        source={item.image}
-        style={{ width: "60%", height: "80%", resizeMode: "contain" }}
-      />
-      <Text style={styles._title}>{item.title}</Text>
-      <Text style={styles._subtitle}>{item.subtitle}</Text>
-    </View>
-  );
-};
 
-const OnBoarding = ({ navigation }) => {
+const Survey = ({ navigation }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
   const ref = React.useRef();
-
+  var spiroHelpYou = "";
+  var sleepTime = "";
+  var wakeupTime = "";
   const updateCurrentSlideIndex = (e) => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
     const currentIndex = Math.round(contentOffsetX / width);
@@ -73,11 +62,11 @@ const OnBoarding = ({ navigation }) => {
     setCurrentSlideIndex(lastSlideIndex);
   };
 
-  const Footer = () => {
+  const Indicator = () => {
     return (
       <View
         style={{
-          height: height * 0.25,
+          height: height * 0.1,
           justifyContent: "space-between",
           paddingHorizontal: 20,
         }}
@@ -102,14 +91,31 @@ const OnBoarding = ({ navigation }) => {
             />
           ))}
         </View>
+      </View>
+    );
+  };
+
+  const FooterButtons = () => {
+    return (
+      <View
+        style={{
+          height: height * 0.1,
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+        }}
+      >
         <View style={{ marginBottom: 50 }}>
           {currentSlideIndex == slides.length - 1 ? (
-            <View style={{ height: 50 }}>
+            <View style={{ flexDirection: "row" }}>
+              {/* <TouchableOpacity style={styles._btn_skip} onPress={skipSlides}>
+                <Text style={styles._btn_text_skip}>Skip</Text>
+              </TouchableOpacity>
+              <View style={{ width: 15 }} /> */}
               <TouchableOpacity
                 style={styles._btn}
-                onPress={() => navigation.replace("Survey")}
+                onPress={() => navigation.replace("GettingStart")}
               >
-                <Text style={styles._btn_text}>Get Started</Text>
+                <Text style={styles._btn_text}>Done!</Text>
               </TouchableOpacity>
             </View>
           ) : (
@@ -128,8 +134,65 @@ const OnBoarding = ({ navigation }) => {
     );
   };
 
+  const FourButtons = ({}) => {
+    return (
+      <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "column" }}>
+          <TouchableOpacity style={styles._btn_survey}>
+            <Image
+              source={require("./../../../assets/relax.png")}
+              style={styles._btn_image_survey}
+            />
+            <Text style={styles._btn_text_survey}>to feel relxed</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles._btn_survey}>
+            <Image
+              source={require("./../../../assets/sleep.png")}
+              style={styles._btn_image_survey}
+            />
+            <Text style={styles._btn_text_survey}>to fall asleep</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "column" }}>
+          <TouchableOpacity style={styles._btn_survey}>
+            <Image
+              source={require("./../../../assets/energy.png")}
+              style={styles._btn_image_survey}
+            />
+            <Text style={styles._btn_text_survey}>to increase energy</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles._btn_survey}>
+            <Image
+              source={require("./../../../assets/performance.png")}
+              style={styles._btn_image_survey}
+            />
+            <Text style={styles._btn_text_survey}>to improve performance</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+  const Slide = ({ item }) => {
+    return (
+      <View style={{ alignItems: "center", width: width }}>
+        <Text style={styles._title}>{item.title}</Text>
+        <Text style={styles._subtitle}>{item.subtitle}</Text>
+        {currentSlideIndex == 0 ? (
+          <FourButtons />
+        ) : (
+          <Image
+            source={item.image}
+            style={{ width: "60%", height: "80%", resizeMode: "contain" }}
+          />
+        )}
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.black }}>
+      <Indicator />
       <FlatList
         ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
@@ -140,12 +203,12 @@ const OnBoarding = ({ navigation }) => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => <Slide item={item} />}
       />
-      <Footer />
+      <FooterButtons />
     </SafeAreaView>
   );
 };
 
-export default OnBoarding;
+export default Survey;
 
 let styles = StyleSheet.create({
   _container: {
@@ -171,6 +234,17 @@ let styles = StyleSheet.create({
     height: 50,
     borderRadius: 8,
   },
+  _btn_survey: {
+    backgroundColor: theme.white,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    height: 180,
+    width: 120,
+    padding: 10,
+    margin: 10,
+  },
   _btn_skip: {
     flex: 1,
     backgroundColor: theme.black,
@@ -188,11 +262,24 @@ let styles = StyleSheet.create({
     fontFamily: theme.TajawalBold,
     textTransform: "uppercase",
   },
+  _btn_text_survey: {
+    fontSize: 15,
+    textAlign: "center",
+    color: theme.black,
+    fontFamily: theme.TajawalBold,
+    textTransform: "capitalize",
+  },
   _btn_text_skip: {
     fontSize: 15,
     color: theme.white,
     fontFamily: theme.TajawalBold,
     textTransform: "uppercase",
+  },
+  _btn_image_survey: {
+    width: 70,
+    height: 70,
+    resizeMode: "contain",
+    marginBottom: 20,
   },
   _title: {
     color: theme.white,
@@ -208,6 +295,7 @@ let styles = StyleSheet.create({
     marginTop: 10,
     maxWidth: "70%",
     lineHeight: 23,
+    marginBottom: 10,
     textAlign: "center",
   },
   _indicator: {
