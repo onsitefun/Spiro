@@ -14,6 +14,9 @@ import Downloads from "./Downloads";
 import Login from "./EmailLogin";
 import Register from "./Register";
 import LoginOptions from "./LoginOptions";
+import OnBoarding from "./OnBoarding";
+import Survey from "./Survey";
+import ForgotPassword from "./ForgotPassword";
 
 import EditProfile from "./EditProfile";
 import HelpCenter from "./HelpCenter"
@@ -48,4 +51,9 @@ export {
   Trial,
   About,
   
+
+  OnBoarding,
+  Survey,
+  ForgotPassword,
+
 };

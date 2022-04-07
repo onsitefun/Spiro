@@ -1,276 +1,341 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import {
-  TouchableOpacity,
-  Animated,
-  PanResponder,
-  View,
-  Easing,
+  Dimensions,
+  StyleSheet,
   Text,
+  View,
+  TouchableOpacity,
 } from "react-native";
+import Slider from "react-native-slider";
 import { Audio } from "expo-av";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import sleep from "./sleep";
-import DigitalTimeString from "./DigitalTimeString";
+import { Foundation } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import theme from "../../theme";
 
-const TRACK_SIZE = 4;
-const THUMB_SIZE = 20;
+class PlaylistItem {
+  constructor(name, uri, image) {
+    this.name = name;
+    this.uri = uri;
+    this.image = image;
+  }
+}
 
-export default class AudioSlider extends PureComponent {
+const PLAYLIST = [
+  new PlaylistItem(
+    "Comfort Fit - “Sorry”",
+    "https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3",
+    "https://facebook.github.io/react/img/logo_og.png"
+  ),
+];
+
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get("window");
+const FONT_SIZE = 14;
+const LOADING_STRING = "Loading...";
+
+export default class AudioSlider extends Component {
   constructor(props) {
     super(props);
+    this.index = 0;
+    this.isSeeking = false;
+    this.shouldPlayAtEndOfSeek = false;
+    this.playbackInstance = null;
     this.state = {
-      playing: false,
-      currentTime: 0, // miliseconds; value interpolated by animation.
-      duration: 0,
-      trackLayout: {},
-      dotOffset: new Animated.ValueXY(),
-      xDotOffsetAtAnimationStart: 0,
+      playbackInstanceName: LOADING_STRING,
+      playbackInstancePosition: null,
+      playbackInstanceDuration: null,
+      shouldPlay: false,
+      isPlaying: false,
+      isBuffering: false,
+      isLoading: true,
+      fontLoaded: true,
+      volume: 1.0,
+      rate: 1.0,
+      portrait: null,
+    };
+  }
+
+  componentDidMount() {
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+    });
+    (async () => {
+      this.setState({ fontLoaded: true });
+    })();
+
+    this._loadNewPlaybackInstance(false);
+  }
+
+  async _loadNewPlaybackInstance(playing) {
+    if (this.playbackInstance != null) {
+      await this.playbackInstance.unloadAsync();
+      this.playbackInstance.setOnPlaybackStatusUpdate(null);
+      this.playbackInstance = null;
+    }
+
+    const source = { uri: PLAYLIST[this.index].uri };
+    const initialStatus = {
+      shouldPlay: playing,
+      rate: this.state.rate,
+      volume: this.state.volume,
     };
 
-    // Important:
-    // this.state.dotOffset.x is the actual offset
-    // this.state.dotOffset.x._value is the offset from the point where the animation started
-    // However, since this.state.dotOffset.x is an object and not a value, it is difficult
-    // to compare it with other numbers. Therefore, the const currentOffsetX is used.
-    // To print all attributes of the object see https://stackoverflow.com/questions/9209747/printing-all-the-hidden-properties-of-an-object
-    this._panResponder = PanResponder.create({
-      onMoveShouldSetResponderCapture: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
-      onPanResponderGrant: async (e, gestureState) => {
-        if (this.state.playing) {
-          await this.pause();
-        }
-        await this.setState({
-          xDotOffsetAtAnimationStart: this.state.dotOffset.x._value,
-        });
-        await this.state.dotOffset.setOffset({
-          x: this.state.dotOffset.x._value,
-        });
-        await this.state.dotOffset.setValue({ x: 0, y: 0 });
-      },
-      onPanResponderMove: (e, gestureState) => {
-        Animated.event([
-          null,
-          { dx: this.state.dotOffset.x, dy: this.state.dotOffset.y },
-        ])(e, gestureState);
-      },
-      onPanResponderTerminationRequest: () => false,
-      onPanResponderTerminate: async (evt, gestureState) => {
-        // Another component has become the responder, so this gesture is cancelled.
+    const { sound, status } = await Audio.Sound.create(
+      source,
+      initialStatus,
+      this._onPlaybackStatusUpdate
+    );
+    this.playbackInstance = sound;
 
-        const currentOffsetX =
-          this.state.xDotOffsetAtAnimationStart + this.state.dotOffset.x._value;
-        if (
-          currentOffsetX < 0 ||
-          currentOffsetX > this.state.trackLayout.width
-        ) {
-          await this.state.dotOffset.setValue({
-            x: -this.state.xDotOffsetAtAnimationStart,
-            y: 0,
-          });
-        }
-        await this.state.dotOffset.flattenOffset();
-        await this.mapAudioToCurrentTime();
-      },
-      onPanResponderRelease: async (e, { vx }) => {
-        const currentOffsetX =
-          this.state.xDotOffsetAtAnimationStart + this.state.dotOffset.x._value;
-        if (
-          currentOffsetX < 0 ||
-          currentOffsetX > this.state.trackLayout.width
-        ) {
-          await this.state.dotOffset.setValue({
-            x: -this.state.xDotOffsetAtAnimationStart,
-            y: 0,
-          });
-        }
-        await this.state.dotOffset.flattenOffset();
-        await this.mapAudioToCurrentTime();
-      },
-    });
+    this._updateScreenForLoading(false);
   }
 
-  mapAudioToCurrentTime = async () => {
-    await this.soundObject.setPositionAsync(this.state.currentTime);
-  };
-
-  onPressPlayPause = async () => {
-    if (this.state.playing) {
-      await this.pause();
-      return;
+  _updateScreenForLoading(isLoading) {
+    if (isLoading) {
+      this.setState({
+        isPlaying: false,
+        playbackInstanceName: LOADING_STRING,
+        playbackInstanceDuration: null,
+        playbackInstancePosition: null,
+        isLoading: true,
+      });
+    } else {
+      this.setState({
+        playbackInstanceName: PLAYLIST[this.index].name,
+        portrait: PLAYLIST[this.index].image,
+        isLoading: false,
+      });
     }
-    await this.play();
-  };
-
-  play = async () => {
-    await this.soundObject.playAsync();
-    this.setState({ playing: true }); // This is for the play-button to go to play
-    this.startMovingDot();
-  };
-
-  pause = async () => {
-    await this.soundObject.pauseAsync();
-    this.setState({ playing: false }); // This is for the play-button to go to pause
-    Animated.timing(this.state.dotOffset).stop(); // Will also call animationPausedOrStopped()
-  };
-
-  startMovingDot = async () => {
-    const status = await this.soundObject.getStatusAsync();
-    const durationLeft = status["durationMillis"] - status["positionMillis"];
-
-    Animated.timing(this.state.dotOffset, {
-      toValue: { x: this.state.trackLayout.width, y: 0 },
-      duration: durationLeft,
-      easing: Easing.linear,
-    }).start(() => this.animationPausedOrStopped());
-  };
-
-  animationPausedOrStopped = async () => {
-    if (!this.state.playing) {
-      // Audio has been paused
-      return;
-    }
-    // Animation-duration is over (reset Animation and Audio):
-    await sleep(200); // In case animation has finished, but audio has not
-    this.setState({ playing: false });
-    await this.soundObject.pauseAsync();
-    await this.state.dotOffset.setValue({ x: 0, y: 0 });
-    // this.state.dotOffset.setValue(0);
-    await this.soundObject.setPositionAsync(0);
-  };
-
-  measureTrack = (event) => {
-    this.setState({ trackLayout: event.nativeEvent.layout }); // {x, y, width, height}
-  };
-
-  async componentDidMount() {
-    this.soundObject = new Audio.Sound();
-    await this.soundObject.loadAsync(this.props.audio);
-    const status = await this.soundObject.getStatusAsync();
-    this.setState({ duration: status["durationMillis"] });
-
-    // This requires measureTrack to have been called.
-    this.state.dotOffset.addListener(() => {
-      let animatedCurrentTime = this.state.dotOffset.x
-        .interpolate({
-          inputRange: [0, this.state.trackLayout.width],
-          outputRange: [0, this.state.duration],
-          extrapolate: "clamp",
-        })
-        .__getValue();
-      this.setState({ currentTime: animatedCurrentTime });
-    });
   }
 
-  async componentWillUnmount() {
-    await this.soundObject.unloadAsync();
-    this.state.dotOffset.removeAllListeners();
+  _onPlaybackStatusUpdate = (status) => {
+    if (status.isLoaded) {
+      this.setState({
+        playbackInstancePosition: status.positionMillis,
+        playbackInstanceDuration: status.durationMillis,
+        shouldPlay: status.shouldPlay,
+        isPlaying: status.isPlaying,
+        isBuffering: status.isBuffering,
+        rate: status.rate,
+        volume: status.volume,
+      });
+      if (status.didJustFinish) {
+        this._advanceIndex(true);
+        this._updatePlaybackInstanceForIndex(true);
+      }
+    } else {
+      if (status.error) {
+        console.log(`FATAL PLAYER ERROR: ${status.error}`);
+      }
+    }
+  };
+
+  _advanceIndex(forward) {
+    this.index =
+      (this.index + (forward ? 1 : PLAYLIST.length - 1)) % PLAYLIST.length;
+  }
+
+  async _updatePlaybackInstanceForIndex(playing) {
+    this._updateScreenForLoading(true);
+
+    this._loadNewPlaybackInstance(playing);
+  }
+
+  _onPlayPausePressed = () => {
+    if (this.playbackInstance != null) {
+      if (this.state.isPlaying) {
+        this.playbackInstance.pauseAsync();
+      } else {
+        this.playbackInstance.playAsync();
+      }
+    }
+  };
+
+  _onStopPressed = () => {
+    if (this.playbackInstance != null) {
+      this.playbackInstance.stopAsync();
+    }
+  };
+
+  _onVolumeSliderValueChange = (value) => {
+    if (this.playbackInstance != null) {
+      this.playbackInstance.setVolumeAsync(value);
+    }
+  };
+
+  _trySetRate = async (rate) => {
+    if (this.playbackInstance != null) {
+      try {
+        await this.playbackInstance.setRateAsync(rate);
+      } catch (error) {
+        // Rate changing could not be performed, possibly because the client's Android API is too old.
+      }
+    }
+  };
+
+  _onSeekSliderValueChange = (value) => {
+    if (this.playbackInstance != null && !this.isSeeking) {
+      this.isSeeking = true;
+      this.shouldPlayAtEndOfSeek = this.state.shouldPlay;
+      this.playbackInstance.pauseAsync();
+    }
+  };
+
+  _onSeekSliderSlidingComplete = async (value) => {
+    if (this.playbackInstance != null) {
+      this.isSeeking = false;
+      const seekPosition = value * this.state.playbackInstanceDuration;
+      if (this.shouldPlayAtEndOfSeek) {
+        this.playbackInstance.playFromPositionAsync(seekPosition);
+      } else {
+        this.playbackInstance.setPositionAsync(seekPosition);
+      }
+    }
+  };
+
+  _getSeekSliderPosition() {
+    if (
+      this.playbackInstance != null &&
+      this.state.playbackInstancePosition != null &&
+      this.state.playbackInstanceDuration != null
+    ) {
+      return (
+        this.state.playbackInstancePosition /
+        this.state.playbackInstanceDuration
+      );
+    }
+    return 0;
+  }
+
+  _getMMSSFromMillis(millis) {
+    const totalSeconds = millis / 1000;
+    const seconds = Math.floor(totalSeconds % 60);
+    const minutes = Math.floor(totalSeconds / 60);
+
+    const padWithZero = (number) => {
+      const string = number.toString();
+      if (number < 10) {
+        return "0" + string;
+      }
+      return string;
+    };
+    return padWithZero(minutes) + ":" + padWithZero(seconds);
+  }
+
+  _getTimestamp() {
+    if (
+      this.playbackInstance != null &&
+      this.state.playbackInstancePosition != null &&
+      this.state.playbackInstanceDuration != null
+    ) {
+      return this._getMMSSFromMillis(this.state.playbackInstancePosition);
+    }
+    return "";
   }
 
   render() {
-    return (
-      <View
-        style={{
-          backgroundColor: theme.white,
-          borderRadius: 100,
-          marginVertical: 15,
-        }}
-      >
+    return !this.state.fontLoaded ? (
+      <View />
+    ) : (
+      <View>
+        <View style={styles.detailsContainer}>
+          <Text style={[styles.text]}>
+            {this._getTimestamp()}
+            {/* {this.state.isBuffering ? BUFFERING_STRING : this._getTimestamp()} */}
+          </Text>
+          <Text style={[styles.text]}>
+            {this._getMMSSFromMillis(this.state.playbackInstanceDuration)}
+          </Text>
+        </View>
+
+        {/* <View style={[styles.playbackContainer]}> */}
+        <Slider
+          // style={styles.playbackSlider}
+          value={this._getSeekSliderPosition()}
+          onValueChange={this._onSeekSliderValueChange}
+          onSlidingComplete={this._onSeekSliderSlidingComplete}
+          thumbTintColor="white"
+          minimumTrackTintColor="#FFFFFF6A"
+          disabled={this.state.isLoading}
+        />
+        {/* </View> */}
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between",
+            alignContent: "center",
+            alignSelf: "center",
             alignItems: "center",
-            paddingLeft: 8,
-            paddingRight: 8,
-            height: 56,
           }}
         >
+          <TouchableOpacity>
+            <Foundation name="previous" size={24} color={theme.white} />
+          </TouchableOpacity>
           <TouchableOpacity
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              //   paddingRight: THUMB_SIZE,
-              zIndex: 2,
-            }}
-            onPress={this.onPressPlayPause}
+            onPress={this._onPlayPausePressed}
+            disabled={this.state.isLoading}
+            style={{ alignSelf: "center", marginTop: 10, marginBottom: 40 }}
           >
-            {this.state.playing ? (
-              <MaterialIcons name="pause" size={24} color="black" />
+            {this.state.isPlaying ? (
+              <MaterialIcons
+                name="pause-circle-outline"
+                size={74}
+                color={theme.white}
+                style={{ marginHorizontal: 20 }}
+              />
             ) : (
-              <Entypo name="controller-play" size={24} color="black" />
+              <AntDesign
+                name="playcircleo"
+                size={74}
+                color={theme.white}
+                style={{ marginHorizontal: 20 }}
+              />
             )}
           </TouchableOpacity>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <DigitalTimeString time={this.state.currentTime} />
-            <Text>/</Text>
-            <DigitalTimeString time={this.state.duration} />
-          </View>
-
-          <Animated.View
-            onLayout={this.measureTrack}
-            style={{
-              flex: 8,
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              height: TRACK_SIZE,
-              borderRadius: TRACK_SIZE / 2,
-              backgroundColor: "#00000034",
-            }}
-          >
-            <Animated.View
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "absolute",
-                left: -((THUMB_SIZE * 4) / 2),
-                width: THUMB_SIZE * 4,
-                height: THUMB_SIZE * 4,
-                transform: [
-                  {
-                    translateX: this.state.dotOffset.x.interpolate({
-                      inputRange: [
-                        0,
-                        this.state.trackLayout.width != undefined
-                          ? this.state.trackLayout.width
-                          : 1,
-                      ],
-                      outputRange: [
-                        0,
-                        this.state.trackLayout.width != undefined
-                          ? this.state.trackLayout.width
-                          : 1,
-                      ],
-                      extrapolate: "clamp",
-                    }),
-                  },
-                ],
-              }}
-              {...this._panResponder.panHandlers}
-            >
-              <View
-                style={{
-                  width: THUMB_SIZE,
-                  height: THUMB_SIZE,
-                  borderRadius: THUMB_SIZE / 2,
-                  backgroundColor: "rgba(0,0,0,0.5)",
-                }}
-              ></View>
-            </Animated.View>
-          </Animated.View>
+          <TouchableOpacity>
+            <Foundation name="next" size={24} color={theme.white} />
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: 300,
+  },
+  portraitContainer: {
+    // marginTop: 80,
+  },
+  portrait: {
+    height: 200,
+    width: 200,
+  },
+  detailsContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  playbackSlider: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  text: {
+    fontSize: FONT_SIZE,
+    minHeight: FONT_SIZE,
+    color: theme.white,
+    fontFamily: theme.TajawalBold,
+  },
+
+  rateSlider: {
+    width: DEVICE_WIDTH - 80,
+  },
+});

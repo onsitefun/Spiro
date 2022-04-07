@@ -11,7 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../../theme";
 
-export default class Login extends React.Component {
+export default class ForgotPassword extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -21,22 +21,13 @@ export default class Login extends React.Component {
     };
   }
 
-  SignIn = () => {
+  SendResetPassword = () => {
     let { err, pin } = this.state;
     if (pin === "") {
       this.setState({ err: "Wrong Pin" });
     } else {
       this.props.navigation.navigate("Home");
     }
-  };
-
-  GoToForgotPasswordPage = () => {
-    this.props.navigation.navigate("ForgotPassword");
-  };
-
-  resendPin = () => {
-    this.props.navigation.goBack();
-    // Alert.alert("Send Pin successfully");
   };
 
   render() {
@@ -68,7 +59,7 @@ export default class Login extends React.Component {
         </View>
         <View style={styles._inner_layer}>
           {/*   ------Text------  */}
-          <Text style={styles._label}>Welcome Back</Text>
+          <Text style={styles._label}>Reset Password</Text>
           {/*   ------Email Input------  */}
           <TextInput
             placeholder="Email address"
@@ -81,34 +72,14 @@ export default class Login extends React.Component {
             onChangeText={(e) => this.setState({ email: e, err: "" })}
           />
           <Text style={styles._err}>{this.state.err}</Text>
-          {/*   ------Password Input------  */}
-          <TextInput
-            placeholder="Password"
-            placeholderTextColor={theme.black}
-            secureTextEntry={true}
-            style={[
-              styles._input,
-              { borderColor: err !== "" ? theme.err : theme.black },
-            ]}
-            value={password}
-            onChangeText={(e) => this.setState({ password: e, err: "" })}
-          />
-          <Text style={styles._err}>{this.state.err}</Text>
+
           {/*   ------Sign In button------  */}
           <TouchableOpacity
             style={[styles._btn, { marginBottom: 0 }]}
-            onPress={() => this.SignIn()}
+            onPress={() => this.SendResetPassword()}
           >
-            <Text style={styles._btn_text}>Sign in</Text>
+            <Text style={styles._btn_text}>Send</Text>
           </TouchableOpacity>
-          <View style={styles._text_btn_view}>
-            <Text
-              style={styles._text_btn}
-              onPress={() => this.GoToForgotPasswordPage()}
-            >
-              Forgot Password?
-            </Text>
-          </View>
         </View>
       </ImageBackground>
     );
