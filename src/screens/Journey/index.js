@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -7,16 +7,54 @@ import {
   Image,
   ImageBackground,
   ScrollView,
+  Dimensions,
 } from "react-native";
+ import { BlurView } from 'expo-blur';
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+
+// function checkSubscription()  {
+//     const [isSubscribed, setIsSubscribed] = useState(false);
+//     if(isSubscribed) return true;
+//     else return false;
+//   }
+const isSubscribed_KEY = 'isSubscribed';
 export default class Journey extends React.Component {
+  
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      isSubscribed: false,
+   };
   }
+
+  componentDidMount() {
+    this.loadAsyncData();
+  }
+
+  loadAsyncData = async () => {
+    try {
+      const isSubscribed = await AsyncStorage.getItem(isSubscribed_KEY)
+      if (isSubscribed !== null) {
+        this.setState({ isSubscribed: JSON.parse(isSubscribed) });
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  storeNotification = async (key, isSubscribed) => {
+    try {
+      await AsyncStorage.setItem(isSubscribed_KEY, JSON.stringify(isSubscribed));
+      this.setState({ isSubscribed });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   render() {
+
     let sessions = [
       {
         title: "Title title title",
@@ -44,6 +82,7 @@ export default class Journey extends React.Component {
         day: "DAY 5",
       },
     ];
+
     return (
       <View style={styles._container}>
         <View style={styles._header}>
@@ -63,7 +102,10 @@ export default class Journey extends React.Component {
           <Text style={styles._thumbnail_title}>Title title title</Text>
           <Text style={styles._thumbnail_title_secondary}>10 Sessions</Text>
         </ImageBackground>
-        <ScrollView>
+        {this.state.isSubscribed ? 
+        <ScrollView >
+        
+        
           <Text style={styles._desc}>
             Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
             sit debitis quaerat qui officiis explicabo. Ea dolores
@@ -98,12 +140,73 @@ export default class Journey extends React.Component {
                   </TouchableOpacity>
                 </View>
               );
-            })}
+            })} 
+ 
           </View>
+        
         </ScrollView>
+        : <ScrollView >
+
+          <Text style={styles._desc}>
+            Lorem ipsum dolor sit amet. Aut repellat omnis sit galisum beatae
+            sit debitis quaerat qui officiis explicabo. Ea dolores
+            exercitationem. pin
+          </Text>
+          <Text style={styles._sesion_title}>Sessions</Text>
+
+          <View>
+            {sessions.map((val, i) => {
+              return (
+                <View key={i} style={styles._sescion}>
+                
+                  <View style={styles._section_data}>
+                  
+                    <Image
+                      source={{ uri: val.img }}
+                      style={styles._sesion_image_unsubscribed}
+                    />
+                    <View>
+                      <Text style={styles._sesion_title_unsubscribed}>{val.title}</Text>
+                      <Text style={styles._sesion_day_unsubscribed}>{val.day}</Text>
+                    </View>
+                  </View>
+                  <TouchableOpacity
+                   // onPress={() =>}
+                  >
+                    <MaterialIcons
+                      name="keyboard-arrow-right"
+                      size={24}
+                      color={theme.lighterGrey}
+                    />
+                  </TouchableOpacity>
+                 
+                </View>
+              );
+            })} 
+
+          </View>
+           
+         {
+             this.state.isSubscribed ?
+              null
+              : //<BlurView intensity={70} tint={"dark"}>
+                <View style={styles._inner_layer}>
+                    {/* <View style={styles.upper_layer} /> */}
+                      <TouchableOpacity style={styles._btn} onPress={() => this.props.navigation.navigate("Trial")}>
+                       <Text style={styles.box_text2}>Start Journey</Text>
+                      </TouchableOpacity>
+                    
+                </View>
+          
+             // </BlurView> 
+            }
+        
+        </ScrollView>}
+          
       </View>
     );
-  }
+    
+                }
 }
 
 let styles = StyleSheet.create({
@@ -130,7 +233,7 @@ let styles = StyleSheet.create({
     alignItems: "center",
   },
   _thumbnail: {
-    height: 292,
+    height: 200,
     backgroundColor: theme.grey,
     borderRadius: 10,
     padding: 10,
@@ -168,6 +271,22 @@ let styles = StyleSheet.create({
     borderRadius: 100,
     marginRight: 10,
   },
+  _sesion_title_unsubscribed: {
+    color: theme.lighterGrey,
+    fontFamily: theme.TajawalBold,
+    fontSize: 22,
+  },
+  _sesion_day_unsubscribed: {
+    color: theme.lighterGrey,
+    fontFamily: theme.TajawalBold,
+  },
+  _sesion_image_unsubscribed: {
+    height: 67,
+    width: 67,
+    borderRadius: 100,
+    marginRight: 10,
+    opacity: 0.4,
+  },
   _section_data: {
     flexDirection: "row",
     flex: 1,
@@ -180,5 +299,49 @@ let styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: theme.grey,
     paddingVertical: 10,
+  },
+  upper_layer: {
+  //  flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    height: 50,
+   // flexDirection: "row",
+    //paddingTop: 150,
+   // bottom: 5,
+   // paddingBottom:10,
+  //  backgroundColor: 'rgba(0,0,0,0.2)',
+   // marginBottom:100,
+   // position: 'absolute',
+  //  width: Dimensions.get("window").width ,
+  },
+  _inner_layer: {
+    flex: 1,
+    flexDirection: "row",
+     //height: 500,
+   // width: Dimensions.get("window").width,
+   // alignItems: "flex-end",
+  },
+    _btn: {
+    flex: 1,
+    backgroundColor: theme.appGreen,
+  //  flexDirection: "row",
+    //justifyContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 50,
+    padding: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom:10,
+    borderRadius: 8,
+  },
+    box_text2: {
+    color: theme.black,
+  //  marginLeft: 20,
+    fontWeight: "600",
+    fontSize: 16,
+    lineHeight: 26,
+    textAlign: "center",
+    marginBottom: 5
   },
 });

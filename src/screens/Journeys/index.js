@@ -1,14 +1,16 @@
-import React from "react";
+import React ,{ useState } from "react";
 import { View, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import theme from "../../../theme";
 import Header from "../../components/Header";
 import JourneyCard from "../../components/JourneyCard";
 export default class Journeys extends React.Component {
+
   constructor() {
     super();
     this.state = {};
   }
   render() {
+
     let journeys = [
       {
         label: "PREMIUM",
@@ -61,6 +63,8 @@ export default class Journeys extends React.Component {
         numOfSessions: "10",
       },
     ];
+    
+
     return (
       <View style={styles._container}>
         <Header title="Journeys" />
@@ -68,18 +72,14 @@ export default class Journeys extends React.Component {
           <View style={styles._cards_section}>
             {journeys.map((val, i) => {
               return (
-                <TouchableOpacity
-                  key={i}
-                  onPress={() =>
-                    this.props.navigation.navigate("Journey", {
-                      data: val,
-                    })
-                  }
-                >
+                  <TouchableOpacity key={i}
+                  onPress={() => this.props.navigation.navigate("Journey", { data: val, })}>
                   <JourneyCard data={val} key={i} marginTop={15} />
-                </TouchableOpacity>
+                </TouchableOpacity> 
               );
             })}
+    
+ 
           </View>
         </ScrollView>
       </View>

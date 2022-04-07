@@ -4,7 +4,7 @@ import { SafeAreaView, View, StyleSheet, TouchableOpacity,Text } from 'react-nat
 import theme from "../../../theme";
 import { Ionicons } from "@expo/vector-icons";
 
-export default class Downloads extends React.Component {
+export default class About extends React.Component {
 
   constructor() {
     super();
@@ -21,15 +21,19 @@ export default class Downloads extends React.Component {
                 size={26}
                 color={theme.white}
               />
+              <Text style={styles.text}>About</Text>
             </View>
           </TouchableOpacity>
 </View>
           <View style={styles.container}>
           <View style={{marginTop:15,marginBottom: 10,}}>
+          <Text style={styles.text}>Spiro is a breathwork app for anyone to create healthy habits around physical and mental.
+          Spiro it's the product of a throughout research in the wellness and mental health space.
+          Spiro is produced by Alamas Labs, Inc.</Text>
           
 
 </View>
-<Text>Downloads</Text>
+
         </View>
       </SafeAreaView>
       );
@@ -56,5 +60,10 @@ let styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 26,
   },
+  _back_btn:{
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
+  },
 });
-

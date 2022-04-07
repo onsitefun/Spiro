@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
+
 import {
   GettingStart,
   EnterPin,
@@ -20,9 +21,18 @@ import {
   SessionsHistory,
   MinutesByTag,
   Downloads,
+
   LoginOptions,
   Login,
   Register,
+
+  EditProfile,
+  HelpCenter,
+  TermsAndConditions,
+  PrivacyPolicy,
+  Trial,
+  About,
+
 } from "./../screens";
 import theme from "../../theme";
 import DrawerContent from "./../components/DrawerContent";
@@ -95,9 +105,18 @@ function Navigation() {
         <Stack.Screen name="SessionsHistory" component={SessionsHistory} />
         <Stack.Screen name="MinutesByTag" component={MinutesByTag} />
         <Stack.Screen name="Downloads" component={Downloads} />
+
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="LoginOptions" component={LoginOptions} />
+
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="HelpCenter" component={HelpCenter} />
+        <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+        <Stack.Screen name="Trial" component={Trial} />
+        <Stack.Screen name="About" component={About} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
