@@ -6,7 +6,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import Slider from "react-native-slider";
+// import Slider from "react-native-slider";
 import { Audio } from "expo-av";
 import { Foundation } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -253,7 +253,7 @@ export default class AudioSlider extends Component {
         </View>
 
         {/* <View style={[styles.playbackContainer]}> */}
-        <Slider
+        {/* <Slider
           // style={styles.playbackSlider}
           value={this._getSeekSliderPosition()}
           onValueChange={this._onSeekSliderValueChange}
@@ -261,7 +261,7 @@ export default class AudioSlider extends Component {
           thumbTintColor="white"
           minimumTrackTintColor="#FFFFFF6A"
           disabled={this.state.isLoading}
-        />
+        /> */}
         {/* </View> */}
         <View
           style={{
