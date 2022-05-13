@@ -5,8 +5,13 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Modal,
+  Alert,
+  Pressable,
+  Image,
 } from "react-native";
 // import Slider from "react-native-slider";
+import Slider from "@react-native-community/slider";
 import { Audio } from "expo-av";
 import { Foundation } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -52,6 +57,8 @@ export default class AudioSlider extends Component {
       volume: 1.0,
       rate: 1.0,
       portrait: null,
+      modalVisible: false,
+      //sliderValue: 0,
     };
   }
 
@@ -141,8 +148,8 @@ export default class AudioSlider extends Component {
 
   async _updatePlaybackInstanceForIndex(playing) {
     this._updateScreenForLoading(true);
-
-    this._loadNewPlaybackInstance(playing);
+    this.setState({ modalVisible: true });
+    // this._loadNewPlaybackInstance(playing);
   }
 
   _onPlayPausePressed = () => {
@@ -197,6 +204,18 @@ export default class AudioSlider extends Component {
     }
   };
 
+  NextState = () => {
+    if (this.playbackInstance != null) {
+      this.isSeeking = false;
+      const seekPosition = 0.02 * this.state.playbackInstanceDuration;
+      if (this.shouldPlayAtEndOfSeek) {
+        this.playbackInstance.playFromPositionAsync(seekPosition);
+      } else {
+        this.playbackInstance.setPositionAsync(seekPosition);
+      }
+    }
+  };
+
   _getSeekSliderPosition() {
     if (
       this.playbackInstance != null &&
@@ -242,6 +261,96 @@ export default class AudioSlider extends Component {
       <View />
     ) : (
       <View>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.modalVisible}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text
+                  style={{
+                    color: "white",
+                    fontFamily: theme.TajawalBold,
+                    fontSize: 22,
+                    paddingBottom: 20,
+                  }}
+                >
+                  Rate your experience!
+                </Text>
+                <View style={styles._rating_row}>
+                  <TouchableOpacity
+                    style={[
+                      styles._rating_view,
+                      { backgroundColor: "#448D54" },
+                    ]}
+                    onPress={() => this.setState({ modalVisible: false })}
+                  >
+                    <Image
+                      source={require("./../../assets/one.png")}
+                      style={styles._rating_icon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles._rating_view,
+                      { backgroundColor: "#83A251" },
+                    ]}
+                    onPress={() => this.setState({ modalVisible: false })}
+                  >
+                    <Image
+                      source={require("./../../assets/two.png")}
+                      style={styles._rating_icon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles._rating_view,
+                      { backgroundColor: "#B5A94D" },
+                    ]}
+                    onPress={() => this.setState({ modalVisible: false })}
+                  >
+                    <Image
+                      source={require("./../../assets/three.png")}
+                      style={styles._rating_icon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles._rating_view,
+                      { backgroundColor: "#B5854D" },
+                    ]}
+                    onPress={() => this.setState({ modalVisible: false })}
+                  >
+                    <Image
+                      source={require("./../../assets/four.png")}
+                      style={styles._rating_icon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles._rating_view,
+                      { backgroundColor: "#B54D4D" },
+                    ]}
+                    onPress={() => this.setState({ modalVisible: false })}
+                  >
+                    <Image
+                      source={require("./../../assets/five.png")}
+                      style={styles._rating_icon}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => this.setModalVisible(true)}
+          >
+            <Text style={styles.textStyle}>Show Modal</Text>
+          </Pressable>
+        </View>
         <View style={styles.detailsContainer}>
           <Text style={[styles.text]}>
             {this._getTimestamp()}
@@ -253,6 +362,20 @@ export default class AudioSlider extends Component {
         </View>
 
         {/* <View style={[styles.playbackContainer]}> */}
+        {/* <MultiSlider
+          // values={this._getSeekSliderPosition()}
+          onValuesChange={this._onSeekSliderValueChange}
+          onValuesChangeFinish={this._onSeekSliderSlidingComplete}
+        /> */}
+        <Slider
+          // style={styles.playbackSlider}
+          value={this._getSeekSliderPosition()}
+          onValueChange={this._onSeekSliderValueChange}
+          onSlidingComplete={this._onSeekSliderSlidingComplete}
+          thumbTintColor="white"
+          minimumTrackTintColor="#FFFFFF6A"
+          disabled={this.state.isLoading}
+        />
         {/* <Slider
           // style={styles.playbackSlider}
           value={this._getSeekSliderPosition()}
@@ -287,8 +410,8 @@ export default class AudioSlider extends Component {
                 style={{ marginHorizontal: 20 }}
               />
             ) : (
-              <AntDesign
-                name="playcircleo"
+              <MaterialIcons
+                name="play-circle-outline"
                 size={74}
                 color={theme.white}
                 style={{ marginHorizontal: 20 }}
@@ -337,5 +460,42 @@ const styles = StyleSheet.create({
 
   rateSlider: {
     width: DEVICE_WIDTH - 80,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#00000070",
+  },
+  modalView: {
+    margin: 10,
+    backgroundColor: "black",
+    borderRadius: 20,
+    padding: 20,
+
+    shadowColor: "#000",
+
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+
+  _rating_row: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  _rating_view: {
+    flex: 1,
+    height: 100,
+    width: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 1,
   },
 });
